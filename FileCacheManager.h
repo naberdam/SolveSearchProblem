@@ -22,6 +22,8 @@ using namespace std;
 template<class Problem, class Solution>
 class FileCacheManager : public CacheManager<Problem, Solution> {
 public:
+
+
 };
 
 
