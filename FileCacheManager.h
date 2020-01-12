@@ -15,83 +15,47 @@
 #include <iostream>
 #include <string.h>
 #include <list>
+#include <iostream>
+#include <string.h>
+
 
 #define CACHE_NAME_FILE "file"
 using namespace std;
 
 template<class Problem, class Solution>
 class FileCacheManager : public CacheManager<Problem, Solution> {
-public:
-
-
-
-};
-
-
-#endif //SOLIDPROJECT_EX2_FILECACHEMANAGER_H
-
-
-
-/*//
-// Created by nerya on 27/11/2019.
-//
-
-#ifndef EX2_EX2_H
-#define EX2_EX2_H
-
-#include <iostream>
-#include <string.h>
-#include <string>
-#include <list>
-#include <unordered_map>
-#include <fstream>
-
-using namespace std;
-//the basic of this algorithm is from youtube - https://www.youtube.com/watch?v=8-FZRAjR7qU
-
-template<class T>
-class CacheManager {
 private:
     int capacityOfCache;
-    unordered_map<string, pair<T, list<string>::iterator>> mapOfCache;
-    list<string> listOfKeys;
-
+    unordered_map<Problem, pair<Solution, list<string>::iterator>> mapOfCache;
+    list<Problem> listOfKeys;
 public:
-    CacheManager<T>(int capacityOfCache1) : capacityOfCache(capacityOfCache1) {}
-
-    T get(string key) {
-        auto item = mapOfCache.find(key);
-        if (item != mapOfCache.end()) {
-            lru(item);
-            return item->second.first;
-        } else {
-            return checkItemInFile(key);
-        }
-
-    }
-
-    void insert(string key, T newObject) {
-        insertObjectToFile(key, newObject);
-        auto checkObject = mapOfCache.find(key);
+    void insert(Problem prob, Solution sol) {
+        //template<class Problem, class Solution>
+        insertObjectToFile(prob, sol);
+        auto checkObject = mapOfCache.find(prob);
         if (checkObject != mapOfCache.end()) {
             lru(checkObject);
             for (auto itr = listOfKeys.begin(); itr != listOfKeys.end(); itr++) {
-                if ((*itr) == key) {
+                if ((*itr) == prob) {
                     listOfKeys.erase(itr);
                     break;
                 }
             }
-            mapOfCache[key] = {newObject, listOfKeys.begin()};
+            mapOfCache[prob] = {sol, listOfKeys.begin()};
 
         } else if (mapOfCache.size() == (unsigned) capacityOfCache) {
             mapOfCache.erase(listOfKeys.back());
             listOfKeys.pop_back();
         }
-        listOfKeys.push_front(key);
-        mapOfCache.insert({key, {newObject, listOfKeys.begin()}});
+        listOfKeys.push_front(prob);
+        mapOfCache.insert({prob, {sol, listOfKeys.begin()}});
     }
 
-    void lru(typename unordered_map<string, pair<T, list<string>::iterator>>::iterator &it) {
+    virtual ~FileCacheManager() {
+
+    }
+
+    void lru(typename unordered_map<Problem, pair<Solution, list<string>::iterator>>::iterator &it) {
         listOfKeys.erase(it->second.second);
         listOfKeys.push_front(it->first);
         it->second.second = listOfKeys.begin();
@@ -105,10 +69,10 @@ public:
         }
     }
 
-    T checkItemInFile(string key) {
-        T objectFromCacheOrFile;
+    Solution checkItemInFile(string key) {
+        Solution objectFromCacheOrFile;
         fstream inputTxt;
-        inputTxt.open(T::class_name + key, ios::in | ios::binary);
+        inputTxt.open(Solution::class_name + key, ios::in | ios::binary);
         if (!inputTxt) {
             throw "Error: problem with open the text file";
         }
@@ -123,9 +87,9 @@ public:
         }
     }
 
-    void insertObjectToFile(string key, T newObject) {
+    void insertObjectToFile(Problem key, Solution newObject) {
         fstream file;
-        file.open(T::class_name + key, ios::out | ios::binary);
+        file.open(Solution::class_name + key, ios::out | ios::binary);
         if (!file) {
             throw "Error: problem with open the text file";
         }
@@ -133,8 +97,17 @@ public:
         file.close();
     }
 
+/*
     virtual ~CacheManager() {}
+*/
+
+
+
 };
 
 
-#endif //EX2_EX2_H*/
+#endif //SOLIDPROJECT_EX2_FILECACHEMANAGER_H
+
+
+
+
