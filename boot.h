@@ -8,6 +8,7 @@
 
 #include "FileCacheManager.h"
 #include "MyTestClientHandler.h"
+#include "MyClientHandler.h"
 #include "MySerialServer.h"
 #include "StringReverser.h"
 #include "Point.h"
@@ -21,8 +22,11 @@ namespace boot {
         Main() {}
         int main1(int argc, char** argv) {
             auto cm = new FileCacheManager<Problem, Solution>();
+            /*auto solver = new StringReverser<string, string>();
+            auto *c = new MyTestClientHandler<string, string>(cm, solver);*/
+
             auto solver = new StringReverser<string, string>();
-            auto *c = new MyTestClientHandler<string, string>(cm, solver);
+            auto *c = new MyClientHandler<string, string>(cm, solver);
             auto s = MySerialServer<string,string>();
             s.open(atoi(argv[1]), c);
         }

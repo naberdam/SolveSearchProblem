@@ -63,7 +63,6 @@ public:
     void foreach(Func f) {
         for (auto it = listOfKeys.begin(); it != listOfKeys.end(); ++it) {
             f(mapOfCache.find(*it)->second.first);
-
         }
     }
 
@@ -94,13 +93,6 @@ public:
         file.write((char *) &newObject, sizeof(newObject));
         file.close();
     }
-
-/*
-    virtual ~CacheManager() {}
-*/
-
-
-
 };
 
 

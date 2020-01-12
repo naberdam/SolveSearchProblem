@@ -4,68 +4,38 @@
 
 #ifndef UNTITELD2_STATE_H
 #define UNTITELD2_STATE_H
+
+typedef enum {NOT = -1 ,UP, DOWN, LEFT, RIGHT} Direction;
+
 template <class T>
+
 class State {
-    T state;
+private:
+    T current;
     double cost;
-    State<T>* cameFrom;
+    State<T> *father;
+    Direction direction;
 
 public:
-    State(T state);
 
-    bool equals(State<T>* s);
+    //maybe changing the constructor to not-having father init, and using the set where needed
+    State(T current, double cost, State<T> *father, Direction direction) : current(current), cost(cost),
+                                                                           father(father), direction(direction) {};
 
-    int operator<(State state);
+    void setCost(double newCost) {cost = newCost;}
 
-    double getCost();
+    void setFather(State<T> *newFather) {father = newFather;}
 
-    State<T>* getCameFrom();
+    double getCost() {return cost;}
 
-    void setCost(double cost);
+    T getState() {return current;}
 
-    void setCameFrom(State<T>* state);
+    State<T> *getFather() {return father;}
 
-    T getState();
+    Direction getDirection() { return direction; }
+
+    //overloading the operator instead of creating function called "Equal"
+    bool operator==(State<T> another) {return (getState() == another.getState());}
 };
-
-template<class T>
-bool State<T>::equals(State<T>* state) {
-    return this->state = state->state;
-}
-
-template<class T>
-int State<T>::operator<(State state) {
-    return static_cast<int>(this->cost - state.getCost());
-}
-
-template<class T>
-double State<T>::getCost() {
-    return this->cost;
-}
-
-template<class T>
-T State<T>::getState() {
-    return this->state;
-}
-
-template<class T>
-State<T>* State<T>::getCameFrom() {
-    return this->cameFrom;
-}
-
-template<class T>
-void State<T>::setCameFrom(State<T>* state) {
-    this->cameFrom=state;
-}
-
-template<class T>
-void State<T>::setCost(double cost) {
-    this->cost=cost;
-}
-
-template<class T>
-State<T>::State(T state) {
-    this->state=state;
-}
 
 #endif //UNTITELD2_STATE_H

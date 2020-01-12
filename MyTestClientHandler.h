@@ -35,11 +35,13 @@ public:
         while (server_side::isConnecting) {
             read(socket, buffer, 2024);
             string prob(buffer);
+
             for (int i = 0; i < sizeof(buffer); i++) {
                 buffer[i] = '\0';
             }
-            if (!strcmp(prob.c_str(), "end\r\n")) {
-                //GlobalShouldStop = true;
+            string endStr = prob.substr(0,3);
+            if (!strcmp(endStr.c_str(), "end")) {
+                server_side::isConnecting = false;
                 close(socket);
                 break;
             }
