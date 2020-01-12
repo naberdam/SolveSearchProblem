@@ -36,44 +36,40 @@ public:
         char buffer[BUFFER_SIZE] = {0};
         while (true)
         {
-            unsigned int i = 0;
-            for (; i < BUFFER_SIZE; ++i) {
-                buffer[i] = '\0';
+            unsigned int k = 0;
+            for (; k < BUFFER_SIZE; ++k) {
+                buffer[k] = '\0';
 
             }
             ssize_t numBytesRead = recv(socket, buffer, BUFFER_SIZE, 0);
             if (numBytesRead > 0) {
                 string check = buffer;
                 stringstream ss(check);
-                cout<<buffer<<endl;
-                /*string delimiterBackSlashN = "\n";
-                size_t posOfAllText = 0;
-                string tokenOfAllText;
-                while ((posOfAllText = check.find(delimiterBackSlashN)) != string::npos) {
-                    tokenOfAllText = check.substr(0, posOfAllText);
-
-                    if (!previousLine.empty()) {
-                        previousLine += currentLine;
-                        currentLine = previousLine;
-                        previousLine = "";
-                    }
-                    if (currentLine == END_OF_COMMUNICATION) {
-                        if (cacheManager->isSavedSolution(problem)) {
-                            solution = cacheManager->getSolution(problem);
-                        }
-                        else {
-                            solution = solver->solve(problem);
-                            cacheManager->saveSolution(problem, solution);
-                        }
-                        write(socket, solution.c_str(), solution.length());
-                        close(socket);
-                        return;
-                    }
-                    problem += currentLine + DELIMITER;
-                    check.erase(0, posOfAllText + delimiterBackSlashN.length());
-                }*/
+                /*cout<<buffer<<endl;*/
                 ssize_t lineAmount = count(check.begin(), check.end(), DELIMITER);
-                for (ssize_t i = 0; i < lineAmount; ++i) {
+                unsigned int j = 0;
+                for (; j < check.size(); ++j) {
+                    if (check[j] == '\n') {
+                        cout << "there is \n" << endl;
+                    }
+                }
+                string endStr = check.substr(0,3);
+                if (endStr == END_OF_COMMUNICATION) {
+                    if (cacheManager->isSavedSolution(problem)) {
+                        solution = cacheManager->getSolution(problem);
+                    }
+                    else {
+                        solution = solver->solve(problem);
+                        cacheManager->saveSolution(problem, solution);
+                    }
+                    write(socket, solution.c_str(), solution.length());
+                    close(socket);
+                    server_side::isConnecting = false;
+                    return;
+                }
+                problem += check + DELIMITER + ",";
+                /*cout << problem << endl;*/
+                /*for (ssize_t i = 0; i < lineAmount; ++i) {
                     getline(ss, currentLine, DELIMITER);
                     if (!previousLine.empty()) {
                         previousLine += currentLine;
@@ -90,13 +86,14 @@ public:
                         }
                         write(socket, solution.c_str(), solution.length());
                         close(socket);
+                        server_side::isConnecting = false;
                         return;
                     }
                     problem += currentLine + DELIMITER;
                 }
                 //if we have half a line, save it
                 if (getline(ss, currentLine, DELIMITER))
-                    previousLine += currentLine;
+                    previousLine += currentLine;*/
             }
         }
     }
