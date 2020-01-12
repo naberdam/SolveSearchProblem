@@ -5,8 +5,12 @@
 #ifndef UNTITLED2_MATRIX_H
 #define UNTITLED2_MATRIX_H
 
+#include "ISearchable.h"
 
-class Matrix {
+template<class T>
+class Matrix : public ISearchable<T> {
+
+
 
 };
 
