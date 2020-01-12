@@ -1,6 +1,6 @@
 
 //
-// Created by amitai on 10/01/2020.
+// Created by nerya on 10/01/2020.
 //
 
 #ifndef UNTITELD2_BOOT_H
