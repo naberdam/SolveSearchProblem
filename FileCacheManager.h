@@ -21,16 +21,14 @@
 
 #define CACHE_NAME_FILE "file"
 using namespace std;
-
-template<class Problem, class Solution>
+template <typename Problem, typename Solution>
 class FileCacheManager : public CacheManager<Problem, Solution> {
 private:
     int capacityOfCache;
-    unordered_map<Problem, pair<Solution, list<string>::iterator>> mapOfCache;
-    list<Problem> listOfKeys;
+    unordered_map<string, pair<const char*, list<string>::iterator>> mapOfCache;
+    list<string> listOfKeys;
 public:
-    void insert(Problem prob, Solution sol) {
-        //template<class Problem, class Solution>
+    void insert(string prob, const char* sol) {
         insertObjectToFile(prob, sol);
         auto checkObject = mapOfCache.find(prob);
         if (checkObject != mapOfCache.end()) {
@@ -55,7 +53,7 @@ public:
 
     }
 
-    void lru(typename unordered_map<Problem, pair<Solution, list<string>::iterator>>::iterator &it) {
+    void lru(typename unordered_map<string, pair<const char*, list<string>::iterator>>::iterator &it) {
         listOfKeys.erase(it->second.second);
         listOfKeys.push_front(it->first);
         it->second.second = listOfKeys.begin();
@@ -69,10 +67,10 @@ public:
         }
     }
 
-    Solution checkItemInFile(string key) {
-        Solution objectFromCacheOrFile;
+    const char* checkItemInFile(string key) {
+        const char* objectFromCacheOrFile;
         fstream inputTxt;
-        inputTxt.open(Solution::class_name + key, ios::in | ios::binary);
+        inputTxt.open(key, ios::in | ios::binary);
         if (!inputTxt) {
             throw "Error: problem with open the text file";
         }
@@ -87,9 +85,9 @@ public:
         }
     }
 
-    void insertObjectToFile(Problem key, Solution newObject) {
+    void insertObjectToFile(string key, const char* newObject) {
         fstream file;
-        file.open(Solution::class_name + key, ios::out | ios::binary);
+        file.open(key, ios::out | ios::binary);
         if (!file) {
             throw "Error: problem with open the text file";
         }

@@ -26,7 +26,7 @@ class MyTestClientHandler : public ClientHandler<Problem,Solution> {
     Solver<Problem, Solution>* solver;
     CacheManager<Problem, Solution>* cm;
 public:
-    MyTestClientHandler(CacheManager<Problem, Solution> *cm1, Solver<Problem,Solution>* solver1 ) {
+    MyTestClientHandler(FileCacheManager<Problem, Solution> *cm1, Solver<Problem,Solution>* solver1 ) {
         this->cm = cm1;
         this->solver = solver1;
     }

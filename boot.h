@@ -15,11 +15,12 @@
 using namespace std;
 
 namespace boot {
+    template <class Problem, class Solution>
     class Main {
     public:
         Main() {}
         int main1(int argc, char** argv) {
-            auto cm = new FileCacheManager<string, string>();
+            auto cm = new FileCacheManager<Problem, Solution>();
             auto solver = new StringReverser<string, string>();
             auto *c = new MyTestClientHandler<string, string>(cm, solver);
             auto s = MySerialServer<string,string>();
