@@ -11,7 +11,6 @@
 #include <mutex>
 #include <sstream>
 #include "CacheManager.h"
-#include "Convertor.h"
 
 
 template <class Problem ,class Solution>
