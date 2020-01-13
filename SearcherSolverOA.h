@@ -13,11 +13,11 @@
 #include <string>
 
 using namespace std;
-
-class SearcherSolver : public Solver<MyMatrixSearchable*, string> {
+template <typename T>
+class SearcherSolver : public Solver</*MyMatrixSearchable**/Searchable<T>*, string> {
 public:
 
-    virtual string solve(MyMatrixSearchable *problem) {
+    virtual string solve(Searchable<T> *problem) {
         /*MyMatrixSearchable matrixProblem = MatrixBuilder::createMatrix(problem);*/
         //todo: need to change it to vector of pair<int, int> instead of string as solution
         //todo: maybe changing the return value of matrixProblem to vector of states instead of string
