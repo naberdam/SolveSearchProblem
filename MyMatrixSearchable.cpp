@@ -7,7 +7,7 @@
 
 vector<State<Point>*> MyMatrixSearchable::getPossibleNextStates(State<Point> &current) {
 
-    /*vector<State<Point>*> result;
+    vector<State<Point>*> result;
     int xCurrent = current.getState().getX();
     int yCurrent = current.getState().getY();
     int fatherX, fatherY;
@@ -18,20 +18,25 @@ vector<State<Point>*> MyMatrixSearchable::getPossibleNextStates(State<Point> &cu
     else {
         fatherX = fatherY = -1;
     }
+
     //if the index exist and the value isn't minus one, which is infinity
     if (xCurrent < width - 1 && matrixStatesByPoints[xCurrent + 1][yCurrent] >= 0 && fatherX != xCurrent + 1) {
-        result.push_back(new State<Point>(std::make_pair(xCurrent + 1, yCurrent), current.getCost() + matrixStatesByPoints[xCurrent + 1][yCurrent], &current, DOWN));
+        Point *p1 = new Point(xCurrent + 1, yCurrent);
+        result.push_back(new State<Point>(p1, current.getCost() + matrixStatesByPoints[xCurrent + 1][yCurrent], &current, DOWN));
     }
     if (yCurrent < length - 1 && matrixStatesByPoints[xCurrent][yCurrent + 1] >= 0 && fatherY != yCurrent + 1) {
-        result.push_back(new State<Point>(std::make_pair(xCurrent, yCurrent + 1), current.getCost() + matrixStates[xCurrent][yCurrent + 1], &current, RIGHT));
+        Point *p2 = new Point(xCurrent, yCurrent + 1);
+        result.push_back(new State<Point>(p2, current.getCost() + matrixStatesByPoints[xCurrent][yCurrent + 1], &current, RIGHT));
     }
-    if (xCurrent > 0 && matrixStates[xCurrent - 1][yCurrent] >= 0 && fatherX != xCurrent - 1) {
-        result.push_back(new State<Point>(std::make_pair(xCurrent - 1, yCurrent), current.getCost() + matrixStates[xCurrent - 1][yCurrent], &current, UP));
+    if (xCurrent > 0 && matrixStatesByPoints[xCurrent - 1][yCurrent] >= 0 && fatherX != xCurrent - 1) {
+        Point *p3 = new Point(xCurrent - 1, yCurrent);
+        result.push_back(new State<Point>(p3, current.getCost() + matrixStatesByPoints[xCurrent - 1][yCurrent], &current, UP));
     }
-    if (yCurrent > 0 && matrixStates[xCurrent][yCurrent - 1] >= 0 && fatherY != yCurrent - 1) {
-        result.push_back(new State<Point>(std::make_pair(xCurrent, yCurrent - 1), current.getCost() + matrixStates[xCurrent][yCurrent - 1], &current, LEFT));
+    if (yCurrent > 0 && matrixStatesByPoints[xCurrent][yCurrent - 1] >= 0 && fatherY != yCurrent - 1) {
+        Point *p4 = new Point(xCurrent, yCurrent - 1);
+        result.push_back(new State<Point>(p4, current.getCost() + matrixStatesByPoints[xCurrent][yCurrent - 1], &current, LEFT));
     }
-    return result;*/
+    return result;
 }
 
 

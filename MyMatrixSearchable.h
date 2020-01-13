@@ -16,7 +16,7 @@ class MyMatrixSearchable : public Searchable<Point> {
     unsigned long width;
     State<Point> *initStateByPoint;
     State<Point> *goalStateByPoint;
-    vector<vector<State<Point> *>> matrixStatesByPoints;
+    vector<vector<double>> matrixStatesByPoints;
     string representationMatrixInString;
 public:
     const string &toString() const;
@@ -25,7 +25,7 @@ public:
 
 public:
 
-    MyMatrixSearchable(const vector<vector<State<Point> *>> &matrix, State<Point> *&initState,
+    MyMatrixSearchable(const vector<vector<double>> &matrix, State<Point> *&initState,
                        State<Point> *&goalState, const string matrixInString) : matrixStatesByPoints(matrix),
                                                                                 initStateByPoint(initState),
                                                                                 goalStateByPoint(goalState),
