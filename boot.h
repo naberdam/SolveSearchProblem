@@ -24,7 +24,6 @@ namespace boot {
             auto cm = new FileCacheManager<Problem, Solution>();
             /*auto solver = new StringReverser<string, string>();
             auto *c = new MyTestClientHandler<string, string>(cm, solver);*/
-
             auto solver = new StringReverser<string, string>();
             auto *c = new MyClientHandler<string, string>(cm, solver);
             auto s = MySerialServer<string,string>();

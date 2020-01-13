@@ -18,6 +18,10 @@ class MyMatrixSearchable : public Searchable<Point> {
     State<Point> *goalStateByPoint;
     vector<vector<State<Point> *>> matrixStatesByPoints;
     string representationMatrixInString;
+public:
+    const string &toString() const;
+
+    void setToString(const string &toString);
 
 public:
 
