@@ -7,7 +7,7 @@
 
 vector<State<Point>*> MyMatrixSearchable::getPossibleNextStates(State<Point> &current) {
 
-    vector<State<Point>*> result;
+    /*vector<State<Point>*> result;
     int xCurrent = current.getState().getX();
     int yCurrent = current.getState().getY();
     int fatherX, fatherY;
@@ -31,7 +31,7 @@ vector<State<Point>*> MyMatrixSearchable::getPossibleNextStates(State<Point> &cu
     if (yCurrent > 0 && matrixStates[xCurrent][yCurrent - 1] >= 0 && fatherY != yCurrent - 1) {
         result.push_back(new State<Point>(std::make_pair(xCurrent, yCurrent - 1), current.getCost() + matrixStates[xCurrent][yCurrent - 1], &current, LEFT));
     }
-    return result;
+    return result;*/
 }
 
 
