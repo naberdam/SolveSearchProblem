@@ -29,6 +29,7 @@ namespace boot {
             auto *c = new MyClientHandler<string, string>(cm, solver);
             auto s = MySerialServer<string,string>();
             s.open(atoi(argv[1]), c);
+
         }
     };
 };
