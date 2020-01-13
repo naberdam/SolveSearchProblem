@@ -79,6 +79,7 @@ public:
             }
             stringWithoutSpaces += line[i];
         }
+
         return stringWithoutSpaces;
     }
 
