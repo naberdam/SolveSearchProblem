@@ -5,31 +5,35 @@
 #include "MyMatrixSearchable.h"
 #include <cmath>
 
-vector<State<pair<int, int>>*> MyMatrixSearchable::getPossibleNextStates(State<pair<int, int>> &current) {
-    vector<State<pair<int, int>>*> result;
-    int i = current.getState().first;
-    int j = current.getState().second;
-    int fatherI, fatherJ;
+vector<State<Point>*> MyMatrixSearchable::getPossibleNextStates(State<Point> &current) {
+
+    vector<State<Point>*> result;
+    int xCurrent = current.getState().getX();
+    int yCurrent = current.getState().getY();
+    int fatherX, fatherY;
     if (current.getFather() != NULL) {
-        fatherI = current.getFather()->getState().first;
-        fatherJ = current.getFather()->getState().second;
+        fatherX = current.getFather()->getState().getX();
+        fatherY = current.getFather()->getState().getY();
     }
     else {
-        fatherI = fatherJ = -1;
+        fatherX = fatherY = -1;
     }
     //if the index exist and the value isn't minus one, which is infinity
-    if (i < width-1 && matrixStates[i+1][j] >= 0 && fatherI != i+1) {
-        result.push_back(new State<pair<int,int>>(std::make_pair(i + 1, j), current.getCost() + matrixStates[i+1][j], &current, DOWN));
+    if (xCurrent < width - 1 && matrixStatesByPoints[xCurrent + 1][yCurrent] >= 0 && fatherX != xCurrent + 1) {
+        result.push_back(new State<Point>(std::make_pair(xCurrent + 1, yCurrent), current.getCost() + matrixStatesByPoints[xCurrent + 1][yCurrent], &current, DOWN));
     }
-    if (j < length-1 && matrixStates[i][j+1] >= 0 && fatherJ != j+1) {
-        result.push_back(new State<pair<int,int>>(std::make_pair(i, j + 1), current.getCost() + matrixStates[i][j+1], &current, RIGHT));
+    if (yCurrent < length - 1 && matrixStatesByPoints[xCurrent][yCurrent + 1] >= 0 && fatherY != yCurrent + 1) {
+        result.push_back(new State<Point>(std::make_pair(xCurrent, yCurrent + 1), current.getCost() + matrixStates[xCurrent][yCurrent + 1], &current, RIGHT));
     }
-    if (i > 0 && matrixStates[i-1][j] >= 0 && fatherI != i-1) {
-        result.push_back(new State<pair<int,int>>(std::make_pair(i - 1, j), current.getCost() + matrixStates[i-1][j], &current, UP));
+    if (xCurrent > 0 && matrixStates[xCurrent - 1][yCurrent] >= 0 && fatherX != xCurrent - 1) {
+        result.push_back(new State<Point>(std::make_pair(xCurrent - 1, yCurrent), current.getCost() + matrixStates[xCurrent - 1][yCurrent], &current, UP));
     }
-    if (j > 0 && matrixStates[i][j-1] >= 0 && fatherJ != j-1) {
-        result.push_back(new State<pair<int,int>>(std::make_pair(i, j - 1), current.getCost() + matrixStates[i][j-1], &current, LEFT));
+    if (yCurrent > 0 && matrixStates[xCurrent][yCurrent - 1] >= 0 && fatherY != yCurrent - 1) {
+        result.push_back(new State<Point>(std::make_pair(xCurrent, yCurrent - 1), current.getCost() + matrixStates[xCurrent][yCurrent - 1], &current, LEFT));
     }
     return result;
 }
+
+
+
 

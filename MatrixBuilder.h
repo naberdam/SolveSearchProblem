@@ -12,6 +12,7 @@
 class MatrixBuilder {
 public:
     static MyMatrixSearchable createMatrix(string input);
+    static MyMatrixSearchable* createMatrix(vector<vector<double>> detailsOnMatrix, string matrixToString);
 
 private:
     static string extractLastLine(vector<string> &input);

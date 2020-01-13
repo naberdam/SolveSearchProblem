@@ -3,63 +3,29 @@
 //
 
 
-#include <sstream>
 #include "MatrixBuilder.h"
+#include "Point.h"
 
-MyMatrixSearchable MatrixBuilder::createMatrix(string input) {
-    vector<string> parsedInput = splitInput(input);
-    vector<vector<int>> matrix;
-    //keeping the init and goal states separately, for convenience
-    string goalData = extractLastLine(parsedInput);
-    string initData = extractLastLine(parsedInput);
-    //allocate space for the rows in advance, for efficiency
-    matrix.reserve(parsedInput.size());
-    for (const auto &line : parsedInput) {
-        if (!line.empty())
-            matrix.push_back(parseRow(line));
+MyMatrixSearchable *MatrixBuilder::createMatrix(vector<vector<double> > detailsOnMatrix, string matrixToString) {
+    vector<double> detailsGoalPoint = detailsOnMatrix.back();
+    detailsOnMatrix.pop_back();
+    Point* goal = new Point((int) detailsGoalPoint[0], (int) detailsGoalPoint[1]);
+    vector<double> detailsStartPoint = detailsOnMatrix.back();
+    detailsOnMatrix.pop_back();
+    Point* start = new Point((int) detailsStartPoint[0],  (int) detailsStartPoint[1]);
+    State<Point>* goalState = new State<Point>(goal, detailsOnMatrix[goal->getX()][goal->getY()], nullptr, NOT);
+    State<Point>* startState = new State<Point>(start, detailsOnMatrix[start->getX()][start->getY()], nullptr, NOT);
+    vector<vector<State<Point>*>> matrix;
+    unsigned int i = 0;
+    for (; i < detailsOnMatrix.size(); ++i) {
+        vector<State<Point>*> cellInMatrix;
+        unsigned int j = 0;
+        for (; j < detailsOnMatrix[i].size(); ++j) {
+            Point* point = new Point(i, j);
+            cellInMatrix.push_back(new State<Point>(point, detailsOnMatrix[i][j], nullptr, NOT));
+        }
+        matrix.push_back(cellInMatrix);
     }
-    pair<int, int> initPair = parseCoordinates(initData);
-    double costInit = matrix[initPair.first][initPair.second];
-    pair<int, int> goalPair = parseCoordinates(goalData);
-    double costGoal = matrix[goalPair.first][goalPair.second];
-    State<pair<int, int>> init = State<pair<int,int>>(initPair, costInit, NULL, NOT);
-    State<pair<int, int>> goal = State<pair<int,int>>(goalPair, costGoal, NULL, NOT);
-    return MyMatrixSearchable(matrix, init, goal);
-}
-
-vector<int> MatrixBuilder::parseRow(const string &line) {
-    vector<int> lineAsInt;
-    string token;
-    stringstream ss(line);
-    while (getline(ss, token, DELIMITER)) {
-        if (!token.empty())
-            lineAsInt.push_back(stoi(token));
-    }
-    return lineAsInt;
-}
-
-string MatrixBuilder::extractLastLine(vector<string> &input) {
-    string temp = input.back();
-    input.pop_back();
-    return temp;
-}
-
-pair<int, int> MatrixBuilder::parseCoordinates(const string &data) {
-    string coordinate;
-    int first, second;
-    stringstream ss(data);
-    getline(ss, coordinate, DELIMITER);
-    first = stoi(coordinate);
-    getline(ss, coordinate);
-    second = stoi(coordinate);
-    return make_pair(first, second);
-}
-
-vector<string> MatrixBuilder::splitInput(const string &input) {
-    string temp;
-    vector<string> result;
-    stringstream ss(input);
-    while (getline(ss, temp))
-        result.push_back(temp);
-    return result;
+    MyMatrixSearchable* myMatrixSearchable = new MyMatrixSearchable(matrix, startState, goalState, matrixToString);
+    return myMatrixSearchable;
 }

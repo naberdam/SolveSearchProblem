@@ -4,36 +4,52 @@
 
 #ifndef UNTITLED2_MYMATRIXSEARCHABLE_H
 #define UNTITLED2_MYMATRIXSEARCHABLE_H
+
 #include <string>
 #include "Searchable.h"
+#include "Point.h"
+
 using namespace std;
 
-class MyMatrixSearchable: public Searchable<pair<int, int>> {
-
-    vector<vector<int>> matrixStates;
+class MyMatrixSearchable : public Searchable<Point> {
     unsigned long length;
     unsigned long width;
-    State<pair<int, int>> initState;
-    State<pair<int, int>> goalState;
+    State<Point> *initStateByPoint;
+    State<Point> *goalStateByPoint;
+    vector<vector<State<Point> *>> matrixStatesByPoints;
+    string representationMatrixInString;
 
 public:
 
-    MyMatrixSearchable(const vector<vector<int>> &matrix, State<pair<int, int>> &initState,
-                       State<pair<int, int>> &goalState) :matrixStates(matrix), initState(initState), goalState(goalState) {
-        width = matrixStates[0].size();
-        length = matrixStates.size();
+    MyMatrixSearchable(const vector<vector<State<Point> *>> &matrix, State<Point> *&initState,
+                       State<Point> *&goalState, const string matrixInString) : matrixStatesByPoints(matrix),
+                                                                                initStateByPoint(initState),
+                                                                                goalStateByPoint(goalState),
+                                                                                representationMatrixInString(
+                                                                                        matrixInString) {
+        width = matrixStatesByPoints[0].size();
+        length = matrixStatesByPoints.size();
     }
 
-    virtual State<pair<int, int>> *getInitialState() {
-        return &initState;
+
+    virtual State<Point> *getInitialState() {
+        return initStateByPoint;
     }
 
-    virtual State<pair<int, int>> *getGoalState() {
-        return &goalState;
+    virtual State<Point> *getGoalState() {
+        return goalStateByPoint;
     }
 
-    virtual vector<State<pair<int, int>>*> getPossibleNextStates(State<pair<int, int>> &current);
+    virtual vector<State<Point> *> getPossibleNextStates(State<Point> &current);
+
+    friend ostream &operator<<(ostream &out, const MyMatrixSearchable *&c);
 
 
 };
+
+ostream &operator<<(ostream &out, const MyMatrixSearchable *&c) {
+    out << c->representationMatrixInString;
+    return out;
+}
+
 #endif //UNTITLED2_MYMATRIXSEARCHABLE_H

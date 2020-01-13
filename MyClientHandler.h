@@ -16,6 +16,8 @@
 #include "ClientHandler.h"
 #include "Solver.h"
 #include "CacheManager.h"
+#include "MatrixBuilder.h"
+#include "MyMatrixSearchable.h"
 
 template <class Problem, class Solution>
 class MyClientHandler : public ClientHandler<Problem,Solution>{
@@ -34,6 +36,7 @@ public:
         string previousLine = "";
         string solution;
         char buffer[BUFFER_SIZE] = {0};
+        vector<vector<double>> detailsOnMatrix;
         while (true)
         {
             unsigned int k = 0;
@@ -45,57 +48,53 @@ public:
             if (numBytesRead > 0) {
                 string check = buffer;
                 stringstream ss(check);
-                /*cout<<buffer<<endl;*/
+                cout<<buffer<<endl;
                 ssize_t lineAmount = count(check.begin(), check.end(), DELIMITER);
-                unsigned int j = 0;
-                for (; j < check.size(); ++j) {
-                    if (check[j] == '\n') {
-                        cout << "there is \n" << endl;
-                    }
+                string endStr = check.substr(0, 3);
+                if (!strcmp(endStr.c_str(), "end")) {
+                    break;
                 }
-                string endStr = check.substr(0,3);
-                if (endStr == END_OF_COMMUNICATION) {
-                    if (cacheManager->isSavedSolution(problem)) {
-                        solution = cacheManager->getSolution(problem);
-                    }
-                    else {
-                        solution = solver->solve(problem);
-                        cacheManager->saveSolution(problem, solution);
-                    }
-                    write(socket, solution.c_str(), solution.length());
-                    close(socket);
-                    server_side::isConnecting = false;
-                    return;
-                }
-                problem += check + DELIMITER + ",";
-                /*cout << problem << endl;*/
-                /*for (ssize_t i = 0; i < lineAmount; ++i) {
-                    getline(ss, currentLine, DELIMITER);
-                    if (!previousLine.empty()) {
-                        previousLine += currentLine;
-                        currentLine = previousLine;
-                        previousLine = "";
-                    }
-                    if (currentLine == END_OF_COMMUNICATION) {
-                        if (cacheManager->isSavedSolution(problem)) {
-                            solution = cacheManager->getSolution(problem);
-                        }
-                        else {
-                            solution = solver->solve(problem);
-                            cacheManager->saveSolution(problem, solution);
-                        }
-                        write(socket, solution.c_str(), solution.length());
-                        close(socket);
-                        server_side::isConnecting = false;
-                        return;
-                    }
-                    problem += currentLine + DELIMITER;
-                }
-                //if we have half a line, save it
-                if (getline(ss, currentLine, DELIMITER))
-                    previousLine += currentLine;*/
+                detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(check));
+                problem += check;
+            }
+            MyMatrixSearchable* matrixSearchable = MatrixBuilder::createMatrix(detailsOnMatrix, problem);
+            if (this->cm->isSavedSolution(problem)) {
+                cout << "save solution" << endl;
+                solution = this->cm->getSolution(problem);
+            } else {
+                cout << "we dont have solution" << endl;
+                solution = this->solver->solve(problem);
+                this->cm->saveSolution(problem, solution);
             }
         }
+    }
+
+    string deleteSpacesFromLine(string line) {
+        unsigned int i = 0;
+        string stringWithoutSpaces;
+        for (; i < line.size(); ++i) {
+            if (line[i] == ' ') {
+                continue;
+            }
+            stringWithoutSpaces += line[i];
+        }
+        return stringWithoutSpaces;
+    }
+
+    vector<double> addLineAfterParsingByComaToVector(const string line) {
+        string lineTemp = deleteSpacesFromLine(line);
+        string delimiterOfAllText = ",";
+        size_t posOfAllText = 0;
+        string tokenOfAllText;
+        vector<double> cellInVectorOfAllMatrix;
+        unsigned int i = 0;
+        while ((posOfAllText = lineTemp.find(delimiterOfAllText)) != string::npos) {
+            tokenOfAllText = lineTemp.substr(0, posOfAllText);
+            lineTemp.erase(0, posOfAllText + delimiterOfAllText.length());
+            cellInVectorOfAllMatrix.push_back(stod(tokenOfAllText));
+        }
+        cellInVectorOfAllMatrix.push_back(stod(tokenOfAllText));
+        return cellInVectorOfAllMatrix;
     }
 
     ~MyClientHandler() {

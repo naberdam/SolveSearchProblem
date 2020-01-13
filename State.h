@@ -11,7 +11,7 @@ template <class T>
 
 class State {
 private:
-    T current;
+    T* current;
     double cost;
     State<T> *father;
     Direction direction;
@@ -19,7 +19,7 @@ private:
 public:
 
     //maybe changing the constructor to not-having father init, and using the set where needed
-    State(T current, double cost, State<T> *father, Direction direction) : current(current), cost(cost),
+    State(T *current, double cost, State<T> *father, Direction direction) : current(current), cost(cost),
                                                                            father(father), direction(direction) {};
 
     void setCost(double newCost) {cost = newCost;}
