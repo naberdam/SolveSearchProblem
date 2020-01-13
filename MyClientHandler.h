@@ -54,6 +54,7 @@ public:
                 if (!strcmp(endStr.c_str(), "end")) {
                     break;
                 }
+                check += "\n";
                 detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(check));
                 problem += check;
             }
@@ -93,6 +94,8 @@ public:
             lineTemp.erase(0, posOfAllText + delimiterOfAllText.length());
             cellInVectorOfAllMatrix.push_back(stod(tokenOfAllText));
         }
+        posOfAllText = lineTemp.find("\n");
+        tokenOfAllText = lineTemp.substr(0, posOfAllText);
         cellInVectorOfAllMatrix.push_back(stod(tokenOfAllText));
         return cellInVectorOfAllMatrix;
     }
