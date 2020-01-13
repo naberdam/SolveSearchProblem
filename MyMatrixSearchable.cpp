@@ -6,7 +6,6 @@
 #include <cmath>
 
 vector<State<Point>*> MyMatrixSearchable::getPossibleNextStates(State<Point> &current) {
-
     vector<State<Point>*> result;
     int xCurrent = current.getState().getX();
     int yCurrent = current.getState().getY();

@@ -36,6 +36,10 @@ public:
 
     //overloading the operator instead of creating function called "Equal"
     bool operator==(State<T> another) {return (getState() == another.getState());}
+
+    T getT(){
+        return T::class_name;
+    }
 };
 
 #endif //UNTITELD2_STATE_H
