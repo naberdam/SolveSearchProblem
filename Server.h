@@ -16,7 +16,7 @@ namespace server_side {
         bool shouldStop = false;
     public:
         //open the server in the port and wait for the customer - connection
-        virtual void open(int port, ClientHandler<P,S>* c) = 0;
+        virtual void open(int port, ClientHandler* c) = 0;
 
         //close the server
         virtual void stop() = 0;

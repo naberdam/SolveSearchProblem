@@ -22,9 +22,9 @@ using namespace std;
 
 
 template <typename Problem, typename Solution>
-class MyTestClientHandler : public ClientHandler<Problem,Solution> {
-    Solver<Problem, Solution>* solver;
-    CacheManager<Problem, Solution>* cm;
+class MyTestClientHandler : public ClientHandler {
+    Solver<string, string>* solver;
+    CacheManager<string, string>* cm;
 public:
     MyTestClientHandler(FileCacheManager<Problem, Solution> *cm1, Solver<Problem,Solution>* solver1 ) {
         this->cm = cm1;

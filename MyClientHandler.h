@@ -20,14 +20,14 @@
 #include "MyMatrixSearchable.h"
 
 template <class Problem, class Solution>
-class MyClientHandler : public ClientHandler<Problem,Solution>{
+class MyClientHandler : public ClientHandler{
 private:
-    Solver<string, string> *solver;
+    Solver<MyMatrixSearchable*, string> *solver;
     CacheManager<string, string> *cacheManager;
 
 public:
 
-    MyClientHandler(CacheManager<string, string> *cacheManager, Solver<string, string> *solver) : cacheManager(cacheManager), solver(solver) {}
+    MyClientHandler(CacheManager<string, string> *cacheManager, Solver<MyMatrixSearchable*, string> *solver) : cacheManager(cacheManager), solver(solver) {}
 
     virtual void handleClient(int socket) {
         //enter into string the info from the socket
@@ -65,7 +65,7 @@ public:
             solution = this->cacheManager->getSolution(problem);
         } else {
             cout << "we dont have solution" << endl;
-            solution = this->solver->solve(problem);
+            solution = this->solver->solve(matrixSearchable);
             this->cacheManager->saveSolution(problem, solution);
         }
     }

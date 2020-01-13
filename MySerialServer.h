@@ -19,7 +19,7 @@
 using namespace std;
 
 template<class P, class S>
-static void *start(int port, ClientHandler<P, S> *clientHandler) {
+static void *start(int port, ClientHandler *clientHandler) {
     int sockfd, newsockfd;
     struct sockaddr_in serv_addr;
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -69,7 +69,7 @@ static void *start(int port, ClientHandler<P, S> *clientHandler) {
 template<class P, class S>
 class MySerialServer : public server_side::Server<P, S> {
 public:
-    void open(int port, ClientHandler<P, S> *clientHandler) {
+    virtual void open(int port, ClientHandler *clientHandler) {
         server_side::isConnecting = true;
         thread thr1(start<P, S>, port, clientHandler);
         thr1.join();
