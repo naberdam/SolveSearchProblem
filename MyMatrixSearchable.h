@@ -43,8 +43,6 @@ public:
     virtual vector<State<Point> *> getPossibleNextStates(State<Point> &current);
 
     friend ostream &operator<<(ostream &out, const MyMatrixSearchable *&c);
-
-
 };
 
 ostream &operator<<(ostream &out, const MyMatrixSearchable *&c) {
