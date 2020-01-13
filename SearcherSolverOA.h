@@ -26,6 +26,7 @@ public:
         delete bestFS;
         return result;*/
         cout << "succeed to enter SearcherSolver" << endl;
+        cout << "blb" << endl;
         return "";
     }
 };
