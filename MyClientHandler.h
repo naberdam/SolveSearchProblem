@@ -25,7 +25,6 @@ private:
     Solver<MyMatrixSearchable*, string> *solver;
     CacheManager<string, string> *cacheManager;
 
-
 public:
 
     MyClientHandler(CacheManager<string, string> *cacheManager, Solver<MyMatrixSearchable*, string> *solver) : cacheManager(cacheManager), solver(solver) {}
