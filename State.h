@@ -28,7 +28,7 @@ public:
 
     double getCost() {return cost;}
 
-    T getState() {return current;}
+    T getState() {return *current;}
 
     State<T> *getFather() {return father;}
 

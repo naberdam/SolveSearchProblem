@@ -15,17 +15,6 @@ MyMatrixSearchable *MatrixBuilder::createMatrix(vector<vector<double> > detailsO
     Point* start = new Point((int) detailsStartPoint[0],  (int) detailsStartPoint[1]);
     State<Point>* goalState = new State<Point>(goal, detailsOnMatrix[goal->getX()][goal->getY()], nullptr, NOT);
     State<Point>* startState = new State<Point>(start, detailsOnMatrix[start->getX()][start->getY()], nullptr, NOT);
-    /*vector<vector<State<Point>*>> matrix;
-    unsigned int i = 0;
-    for (; i < detailsOnMatrix.size(); ++i) {
-        vector<State<Point>*> cellInMatrix;
-        unsigned int j = 0;
-        for (; j < detailsOnMatrix[i].size(); ++j) {
-            Point* point = new Point(i, j);
-            cellInMatrix.push_back(new State<Point>(point, detailsOnMatrix[i][j], nullptr, NOT));
-        }
-        matrix.push_back(cellInMatrix);
-    }*/
     MyMatrixSearchable* myMatrixSearchable = new MyMatrixSearchable(detailsOnMatrix, startState, goalState, matrixToString);
     return myMatrixSearchable;
 }

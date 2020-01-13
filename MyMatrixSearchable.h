@@ -9,7 +9,6 @@
 #include "Searchable.h"
 #include "Point.h"
 
-using namespace std;
 
 class MyMatrixSearchable : public Searchable<Point> {
     unsigned long length;
@@ -18,10 +17,6 @@ class MyMatrixSearchable : public Searchable<Point> {
     State<Point> *goalStateByPoint;
     vector<vector<double>> matrixStatesByPoints;
     string representationMatrixInString;
-public:
-    const string &toString() const;
-
-    void setToString(const string &toString);
 
 public:
 
@@ -46,12 +41,12 @@ public:
 
     virtual vector<State<Point> *> getPossibleNextStates(State<Point> &current);
 
-    friend ostream &operator<<(ostream &out, const MyMatrixSearchable *&c);
+    friend ostream &operator<<(ostream &out, const MyMatrixSearchable *&c) {
+        out << c->representationMatrixInString;
+        return out;
+    }
 };
 
-ostream &operator<<(ostream &out, const MyMatrixSearchable *&c) {
-    out << c->representationMatrixInString;
-    return out;
-}
+
 
 #endif //UNTITLED2_MYMATRIXSEARCHABLE_H
