@@ -14,10 +14,7 @@
 
 using namespace std;
 
-class SearcherSolver : public Solver<string, string> {
-private:
-    vector<vector<double >> detailsFromServerAboutMatrix;
-
+class SearcherSolver : public Solver<MyMatrixSearchable*, string> {
 public:
 
     virtual string solve(MyMatrixSearchable *problem) {
@@ -28,11 +25,8 @@ public:
         string result = bestFS->search(&matrixProblem);
         delete bestFS;
         return result;*/
+        cout << "succeed to enter SearcherSolver" << endl;
         return "";
-    }
-
-    void setDetailsFromServerAboutMatrix(const vector<vector<double>> &detailsFromServerAboutMatrix1) {
-        SearcherSolver::detailsFromServerAboutMatrix = detailsFromServerAboutMatrix1;
     }
 };
 
