@@ -65,9 +65,7 @@ public:
             } else {
                 cout << "we dont have solution, but we will find for you" << endl;
                 solution = this->solver->solve(matrixSearchable);
-                cout<<"ssss"<<endl;
                 this->cacheManager->saveSolution(problem, solution);
-                cout<<"aaaaa"<<endl;
             }
 
             write(socket, solution.c_str(), solution.length());
