@@ -15,26 +15,26 @@ protected:
     stack<State<T>*> openList;
     vector<State<T>*> closedList;
 
-    State<T> *popOpenList() {
+    virtual State<T> *popOpenList() {
         this->increaseNumberOfNodesEvaluated();
         State<T> *result = openList.top();
         openList.pop();
         return result;
     }
 
-    unsigned long getOpenListSize() {
+    virtual unsigned long getOpenListSize() {
         return openList.size();
     }
 
-    void addToOpenList(State<T> *current) {
+    virtual void addToOpenList(State<T> *current) {
         openList.push(current);
     }
 
-    void addToCloseList(State<T> *current) {
+    virtual void addToCloseList(State<T> *current) {
         closedList.push_back(current);
     }
 
-    bool doWeHaveThisNodeInOpenList(State<T> *current) {
+    virtual bool doWeHaveThisNodeInOpenList(State<T> *current) {
         bool isFound = false;
         stack<State<T>*> temp;
         while (!openList.empty()) {
@@ -52,7 +52,7 @@ protected:
         return isFound;
     }
 
-    bool doWeHaveThisNodeInClosedList(State<T> *current) {
+    virtual bool doWeHaveThisNodeInClosedList(State<T> *current) {
         for (auto node : closedList) {
             if (*current == *node) {
                 return true;
@@ -61,7 +61,7 @@ protected:
         return false;
     }
 
-    void deleteEverything() {
+    virtual void deleteEverything() {
         while (!openList.empty()) {
             auto item = openList.top();
             openList.pop();

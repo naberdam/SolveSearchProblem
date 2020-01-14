@@ -67,6 +67,14 @@ protected:
         ++evaluatedNodes;
     }
 
+    virtual State<T> *popOpenList() = 0;
+    virtual unsigned long getOpenListSize() = 0;
+    virtual void addToOpenList(State<T> *current) = 0;
+    virtual void addToCloseList(State<T> *current) = 0;
+    virtual bool doWeHaveThisNodeInOpenList(State<T> *current) = 0;
+    virtual bool doWeHaveThisNodeInClosedList(State<T> *current) = 0;
+    virtual void deleteEverything() = 0;
+
 public:
     BackTraceSearcher() : evaluatedNodes(0) {}
 

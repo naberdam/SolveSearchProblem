@@ -16,25 +16,25 @@ public:
     /*unordered_set<State<T>*> closedList;*/
     vector<State<T>*> closedList;
 
-    State<T> *popOpenList() {
+    virtual State<T> *popOpenList() {
         this->increaseNumberOfNodesEvaluated();
         State<T> *result = openList.front();
         openList.pop();
         return result;
     }
-    unsigned long getOpenListSize() {
+    virtual unsigned long getOpenListSize() {
         return openList.size();
     }
 
-    void addToOpenList(State<T> *current) {
+    virtual void addToOpenList(State<T> *current) {
         openList.push(current);
     }
 
-    void addToCloseList(State<T> *current) {
+    virtual void addToCloseList(State<T> *current) {
         closedList.push_back(current);
     }
 
-    bool doWeHaveThisNodeInClosedList(State<T> *current) {
+    virtual bool doWeHaveThisNodeInClosedList(State<T> *current) {
         for (auto node : closedList) {
             if (*current == *node) {
                 return true;
@@ -55,7 +55,7 @@ public:
         return openListVector;
     }
 
-    bool doWeHaveThisNodeInOpenList(State<T> *current) {
+    virtual bool doWeHaveThisNodeInOpenList(State<T> *current) {
         vector<State<T>*> openListVector = vectorOfOpenList();
         for (auto item : openListVector) {
             if (*current == *item) {
@@ -65,7 +65,7 @@ public:
         return false;
     }
 
-    void deleteEverything() {
+    virtual void deleteEverything() {
         while (!openList.empty()) {
             auto item = openList.front();
             openList.pop();

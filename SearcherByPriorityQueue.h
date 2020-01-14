@@ -23,7 +23,7 @@ protected:
     /*priority_queue<State<T>*, vector<State<T>*>, ComparatorByCost> openPriorityQueue;*/
     vector<State<T> *> closedList;
 
-    State<T> *popOpenList() {
+    virtual State<T> *popOpenList() {
         this->increaseNumberOfNodesEvaluated();
         auto iter = openList.begin();
         State<T> *result = *iter;
@@ -31,21 +31,19 @@ protected:
         return result;
     }
 
-    unsigned long getOpenListSize() {
+    virtual unsigned long getOpenListSize() {
         return openList.size();
     }
 
-    void addToOpenList(State<T> *current) {
+    virtual void addToOpenList(State<T> *current) {
         openList.insert(current);
     }
 
-    void addToCloseList(State<T> *current) {
+    virtual void addToCloseList(State<T> *current) {
         closedList.push_back(current);
     }
 
-    bool doWeHaveThisNodeInOpenList(State<T> *current) {
-        /*auto item = openList.find(current);
-        return item != openList.end();*/
+    virtual bool doWeHaveThisNodeInOpenList(State<T> *current) {
         for (auto state : openList) {
             if (*current == *state) {
                 return true;
@@ -54,7 +52,7 @@ protected:
         return false;
     }
 
-    bool doWeHaveThisNodeInClosedList(State<T> *current) {
+    virtual bool doWeHaveThisNodeInClosedList(State<T> *current) {
         for (auto node : closedList) {
             if (*current == *node) {
                 return true;
@@ -85,7 +83,7 @@ protected:
         }
     }
 
-    void deleteEverything() {
+    virtual void deleteEverything() {
         openList.clear();
         closedList.clear();
     }

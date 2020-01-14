@@ -42,7 +42,6 @@ public:
             unsigned int k = 0;
             for (; k < BUFFER_SIZE; ++k) {
                 buffer[k] = '\0';
-
             }
             ssize_t numBytesRead = recv(socket, buffer, BUFFER_SIZE, 0);
             if (numBytesRead > 0) {
@@ -68,6 +67,7 @@ public:
             solution = this->solver->solve(matrixSearchable);
             this->cacheManager->saveSolution(problem, solution);
         }
+        write(socket, solution.c_str(), solution.length());
     }
 
     string deleteSpacesFromLine(string line) {

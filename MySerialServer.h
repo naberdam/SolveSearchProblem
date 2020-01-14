@@ -55,10 +55,12 @@ static void *start(int port, ClientHandler *clientHandler) {
         if (newsockfd < 0) {
             if (errno == EWOULDBLOCK) {
                 cout << "timeout!" << endl;
-                exit(2);
+                server_side::isConnecting = false;
+                break;
             } else {
                 perror("other error");
-                exit(3);
+                server_side::isConnecting = false;
+                break;
             }
         }
         clientHandler->handleClient(newsockfd);
@@ -72,7 +74,7 @@ public:
     virtual void open(int port, ClientHandler *clientHandler) {
         server_side::isConnecting = true;
         thread thr1(start<P, S>, port, clientHandler);
-        thr1.join();
+        thr1.detach();
 
     }
 
