@@ -30,16 +30,16 @@ protected:
             State<T>* item = trace.top();
             switch (item->getDirection()) {
                 case UP:
-                    result += "up,";
+                    result += "Up,";
                     break;
                 case DOWN:
-                    result += "down,";
+                    result += "Down,";
                     break;
                 case LEFT:
-                    result += "left,";
+                    result += "Left,";
                     break;
                 case RIGHT:
-                    result += "right,";
+                    result += "Right,";
                     break;
                 default:
                     break;
@@ -48,6 +48,18 @@ protected:
         }
         result.pop_back();
         return result;
+    }
+
+    virtual string noPathFromInitializeToGoal(Searchable<T> *searchable) {
+        string msgToServerWithNoPath;
+        msgToServerWithNoPath += "there is not trace from (";
+        msgToServerWithNoPath += searchable->getInitializeState()->getState().getX();
+        msgToServerWithNoPath += searchable->getInitializeState()->getState().getY();
+        msgToServerWithNoPath += ") to (";
+        msgToServerWithNoPath += searchable->getGoalState()->getState().getX();
+        msgToServerWithNoPath += searchable->getGoalState()->getState().getY();
+        msgToServerWithNoPath += ")";
+        return msgToServerWithNoPath;
     }
 
     virtual void increaseNumberOfNodesEvaluated() {

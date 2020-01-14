@@ -21,9 +21,10 @@ public:
         while (this->getOpenListSize() > 0) {
             //start develop the node from openList
             State<T> *nodeFromOpenListWeNeedToHandle = this->popOpenList();
-            this->closedList.push_back(nodeFromOpenListWeNeedToHandle);
+            this->addToCloseList(nodeFromOpenListWeNeedToHandle);
             //if we got to the goal
             if (*nodeFromOpenListWeNeedToHandle == *searchable->getGoalState()) {
+                cout << nodeFromOpenListWeNeedToHandle->getCost() << endl;
                 string result = this->backTrace(nodeFromOpenListWeNeedToHandle, searchable);
                 this->deleteEverything();
                 return result;
@@ -42,7 +43,7 @@ public:
             }
         }
         this->deleteEverything();
-        return "-1";
+        return this->noPathFromInitializeToGoal(searchable);
     }
 
 };

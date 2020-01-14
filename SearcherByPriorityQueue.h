@@ -39,6 +39,10 @@ protected:
         openList.insert(current);
     }
 
+    void addToCloseList(State<T> *current) {
+        closedList.push_back(current);
+    }
+
     bool doWeHaveThisNodeInOpenList(State<T> *current) {
         /*auto item = openList.find(current);
         return item != openList.end();*/

@@ -10,8 +10,6 @@
 #include <map>
 #include <fstream>
 #include <iostream>
-#define CACHE_FILE_NAME "data.txt"
-
 using namespace std;
 
 template <class Problem ,class Solution>

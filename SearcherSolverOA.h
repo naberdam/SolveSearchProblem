@@ -10,6 +10,7 @@
 #include "Searcher.h"
 /*#include "AStarSearcher.h"*/
 #include "BestFirstSearch.h"
+#include "BFS.h"
 #include <vector>
 #include <string>
 
@@ -19,7 +20,7 @@ class SearcherSolver : public Solver<Searchable<T>*, string> {
 public:
 
     virtual string solve(Searchable<T> *problem) {
-        Searcher<string, T> *bestFS = new BestFirstSearch<T>();
+        Searcher<string, T> *bestFS = new BFS<T>();
         cout << "succeed to enter SearcherSolver" << endl;
         string result = bestFS->search(problem);
         cout << "succeed to enter SearcherSolver2" << endl;
