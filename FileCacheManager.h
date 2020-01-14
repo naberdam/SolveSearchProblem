@@ -4,7 +4,6 @@
 
 #ifndef SOLIDPROJECT_EX2_FILECACHEMANAGER_H
 #define SOLIDPROJECT_EX2_FILECACHEMANAGER_H
-
 #include <vector>
 #include <string>
 #include <unordered_map>

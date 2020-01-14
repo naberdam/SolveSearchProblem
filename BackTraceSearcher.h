@@ -5,6 +5,7 @@
 #ifndef UNTITLED2_BACKTRACESEARCHER_H
 #define UNTITLED2_BACKTRACESEARCHER_H
 
+
 #include "Searcher.h"
 #include <stack>
 template <class Solution, class T>

@@ -2,6 +2,7 @@
 // Created by amitai on 09/01/2020.
 //
 
+
 #ifndef UNTITLED2_BESTFIRSTSEARCH_H
 #define UNTITLED2_BESTFIRSTSEARCH_H
 

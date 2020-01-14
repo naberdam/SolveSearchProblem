@@ -95,5 +95,4 @@ public:
     virtual Solution search(Searchable<T> *searchable) = 0;
 };
 
-
 #endif //UNTITLED2_SEARCHERBYPRIORITYQUEUE_H
