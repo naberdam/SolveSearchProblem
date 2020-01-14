@@ -29,6 +29,10 @@ public:
     int getY(){
         return this->y;
     }
+
+    bool operator==(Point another) {
+        return ((this->getX() == another.getX()) && (this->getY() == another.getY()));
+    }
 };
 
 #endif //UNTITELD2_POINT_H

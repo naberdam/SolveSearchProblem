@@ -9,25 +9,24 @@
 #include "MatrixBuilder.h"
 #include "Searcher.h"
 /*#include "AStarSearcher.h"*/
+#include "BestFirstSearch.h"
 #include <vector>
 #include <string>
 
 using namespace std;
 template <typename T>
-class SearcherSolver : public Solver</*MyMatrixSearchable**/Searchable<T>*, string> {
+class SearcherSolver : public Solver<Searchable<T>*, string> {
 public:
 
     virtual string solve(Searchable<T> *problem) {
-        /*MyMatrixSearchable matrixProblem = MatrixBuilder::createMatrix(problem);*/
-        //todo: need to change it to vector of pair<int, int> instead of string as solution
-        //todo: maybe changing the return value of matrixProblem to vector of states instead of string
-        /*Searcher<string, pair<int, int>> *bestFS = new AStarSearcher<string, pair<int, int>>();
-        string result = bestFS->search(&matrixProblem);
-        delete bestFS;
-        return result;*/
+        Searcher<string, T> *bestFS = new BestFirstSearch<T>();
         cout << "succeed to enter SearcherSolver" << endl;
-        cout << "blb" << endl;
-        return "";
+        string result = bestFS->search(problem);
+        cout << "succeed to enter SearcherSolver2" << endl;
+        cout << bestFS->getNumberOfNodesEvaluated() << endl;
+        delete bestFS;
+        cout << result << endl;
+        return result;
     }
 };
 

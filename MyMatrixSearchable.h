@@ -30,7 +30,7 @@ public:
         length = matrixStatesByPoints.size();
     }
 
-    virtual State<Point> *getInitialState() {
+    virtual State<Point> *getInitializeState() {
         return initStateByPoint;
     }
 

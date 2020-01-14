@@ -19,15 +19,15 @@
 #include "MatrixBuilder.h"
 #include "MyMatrixSearchable.h"
 
-template <class Problem, class Solution>
+template <class T>
 class MyClientHandler : public ClientHandler{
 private:
-    Solver<MyMatrixSearchable*, string> *solver;
+    Solver<Searchable<T>*, string> *solver;
     CacheManager<string, string> *cacheManager;
 
 public:
 
-    MyClientHandler(CacheManager<string, string> *cacheManager, Solver<MyMatrixSearchable*, string> *solver) : cacheManager(cacheManager), solver(solver) {}
+    MyClientHandler(CacheManager<string, string> *cacheManager, Solver<Searchable<T>*, string> *solver) : cacheManager(cacheManager), solver(solver) {}
 
     virtual void handleClient(int socket) {
         //enter into string the info from the socket

@@ -35,7 +35,9 @@ public:
     Direction getDirection() { return direction; }
 
     //overloading the operator instead of creating function called "Equal"
-    bool operator==(State<T> another) {return (getState() == another.getState());}
+    bool operator==(State<T> another) {
+        return (this->getState() == another.getState());
+    }
 
     T getT(){
         return T::class_name;

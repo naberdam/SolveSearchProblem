@@ -16,7 +16,7 @@ template<class T>
 class Searchable {
 public:
     //get the initialize state - the source
-    /*virtual State<T> *getInitializeState() = 0;*/
+    virtual State<T> *getInitializeState() = 0;
 
     //return the goal state - the detination state
     virtual State<T> *getGoalState() = 0;
