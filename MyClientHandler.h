@@ -4,7 +4,7 @@
 
 #ifndef UNTITLED2_MYCLIENTHANDLER_H
 #define UNTITLED2_MYCLIENTHANDLER_H
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 4000
 #define END_OF_COMMUNICATION "end"
 #define DELIMITER '\n'
 
@@ -30,46 +30,44 @@ public:
     MyClientHandler(CacheManager<string, string> *cacheManager, Solver<Searchable<T>*, string> *solver) : cacheManager(cacheManager), solver(solver) {}
 
     virtual void handleClient(int socket) {
-        while(true) {
-            //enter into string the info from the socket
-            string problem = "";
-            string currentLine = "";
-            string previousLine = "";
-            string solution;
-            char buffer[BUFFER_SIZE] = {0};
-            vector<vector<double>> detailsOnMatrix;
-            while (true) {
-                unsigned int k = 0;
-                for (; k < BUFFER_SIZE; ++k) {
-                    buffer[k] = '\0';
-                }
-                ssize_t numBytesRead = recv(socket, buffer, BUFFER_SIZE, 0);
-                if (numBytesRead > 0) {
-                    string check = buffer;
-                    stringstream ss(check);
-                    cout << buffer << endl;
-                    ssize_t lineAmount = count(check.begin(), check.end(), DELIMITER);
-                    string endStr = check.substr(0, 3);
-                    if (!strcmp(endStr.c_str(), "end")) {
-                        break;
-                    }
-                    check += "\n";
-                    detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(check));
-                    problem += check;
-                }
+        //enter into string the info from the socket
+        string problem = "";
+        string currentLine = "";
+        string previousLine = "";
+        string solution;
+        char buffer[BUFFER_SIZE] = {0};
+        vector<vector<double>> detailsOnMatrix;
+        while (true) {
+            unsigned int k = 0;
+            for (; k < BUFFER_SIZE; ++k) {
+                buffer[k] = '\0';
             }
-            MyMatrixSearchable *matrixSearchable = MatrixBuilder::createMatrix(detailsOnMatrix, problem);
-            if (this->cacheManager->isSavedSolution(problem)) {
-                cout << "There is a solution" << endl;
-                solution = this->cacheManager->getSolution(problem);
-            } else {
-                cout << "we dont have solution, but we will find for you" << endl;
-                solution = this->solver->solve(matrixSearchable);
-                this->cacheManager->saveSolution(problem, solution);
+            ssize_t numBytesRead = recv(socket, buffer, BUFFER_SIZE, 0);
+            if (numBytesRead > 0) {
+                string check = buffer;
+                stringstream ss(check);
+                cout << buffer << endl;
+                ssize_t lineAmount = count(check.begin(), check.end(), DELIMITER);
+                string endStr = check.substr(0, 3);
+                if (!strcmp(endStr.c_str(), "end")) {
+                    break;
+                }
+                check += "\n";
+                detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(check));
+                problem += check;
             }
-
-            write(socket, solution.c_str(), solution.length());
         }
+        MyMatrixSearchable *matrixSearchable = MatrixBuilder::createMatrix(detailsOnMatrix, problem);
+        if (this->cacheManager->isSavedSolution(problem)) {
+            cout << "There is a solution" << endl;
+            solution = this->cacheManager->getSolution(problem);
+        } else {
+            cout << "we dont have solution, but we will find for you" << endl;
+            solution = this->solver->solve(matrixSearchable);
+            this->cacheManager->saveSolution(problem, solution);
+        }
+
+        write(socket, solution.c_str(), solution.length());
     }
 
     string deleteSpacesFromLine(string line) {
