@@ -60,6 +60,7 @@ MyMatrixSearchable::getPossibleNextStatesWithManhattan(State<Point> &current, St
         fatherX = fatherY = -1;
     }
 
+
     double manhattanDistanceCurrent = abs(goal.getState().getX() - xCurrent) + abs(goal.getState().getY() - yCurrent);
     //if the index exist and the value isn't minus one, which is infinity
     if (xCurrent < length - 1 && matrixStatesByPoints[xCurrent + 1][yCurrent]->getCost() >= 0 &&
