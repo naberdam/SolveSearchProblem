@@ -23,8 +23,9 @@ class SearcherSolver : public Solver<Searchable<T> *, string> {
 public:
 
     virtual string solve(Searchable<T> *problem) {
-        Searcher<string, T> *bestFS = new AStar<T>();
+        Searcher<string, T> *bestFS = new DFS<T>();
         string result = bestFS->search(problem);
+        cout << bestFS->getNumberOfNodesEvaluated() << endl;
         delete bestFS;
         return result;
     }

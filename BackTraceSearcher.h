@@ -12,35 +12,51 @@ template <class Solution, class T>
 
 class BackTraceSearcher : public Searcher<Solution, T> {
 private:
+    //how much nodes did i use to go the goalState
     unsigned long evaluatedNodes;
+
+    string setCostInResult(State<T>* item) {
+        string result;
+        result += to_string(item->getCost());
+        result += "), ";
+        return result;
+    }
 
 protected:
 
+    //return back trace of our path
     string backTrace(State<T> *current, Searchable<T> *searchable) {
         stack<State<T> *> trace;
         State<T> *tempState = current;
         string result = "";
 
+        //make trace that in the top it will has the initializeState and in the end it will has the goalState
+        //and all this for the string we want to send with which direction we did each time
         while (!(*tempState == *searchable->getInitializeState())) {
             trace.push(tempState);
             tempState = tempState->getFather();
         }
+        //push the initializeState because it did not enter int the while loop
         trace.push(searchable->getInitializeState());
 
         while (!trace.empty()) {
             State<T>* item = trace.top();
             switch (item->getDirection()) {
                 case UP:
-                    result += "Up,";
+                    result += "Up (";
+                    result += this->setCostInResult(item);
                     break;
                 case DOWN:
-                    result += "Down,";
+                    result += "Down (";
+                    result += this->setCostInResult(item);
                     break;
                 case LEFT:
-                    result += "Left,";
+                    result += "Left (";
+                    result += this->setCostInResult(item);
                     break;
                 case RIGHT:
-                    result += "Right,";
+                    result += "Right (";
+                    result += this->setCostInResult(item);
                     break;
                 default:
                     break;
@@ -55,9 +71,11 @@ protected:
         string msgToServerWithNoPath;
         msgToServerWithNoPath += "there is not trace from (";
         msgToServerWithNoPath += searchable->getInitializeState()->getState().getX();
+        msgToServerWithNoPath += ",'";
         msgToServerWithNoPath += searchable->getInitializeState()->getState().getY();
         msgToServerWithNoPath += ") to (";
         msgToServerWithNoPath += searchable->getGoalState()->getState().getX();
+        msgToServerWithNoPath += ",'";
         msgToServerWithNoPath += searchable->getGoalState()->getState().getY();
         msgToServerWithNoPath += ")";
         return msgToServerWithNoPath;
