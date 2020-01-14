@@ -70,13 +70,13 @@ protected:
     virtual string noPathFromInitializeToGoal(Searchable<T> *searchable) {
         string msgToServerWithNoPath;
         msgToServerWithNoPath += "there is not trace from (";
-        msgToServerWithNoPath += searchable->getInitializeState()->getState().getX();
+        msgToServerWithNoPath += to_string(searchable->getInitializeState()->getState().getX());
         msgToServerWithNoPath += ",'";
-        msgToServerWithNoPath += searchable->getInitializeState()->getState().getY();
+        msgToServerWithNoPath += to_string(searchable->getInitializeState()->getState().getY());
         msgToServerWithNoPath += ") to (";
-        msgToServerWithNoPath += searchable->getGoalState()->getState().getX();
+        msgToServerWithNoPath += to_string(searchable->getGoalState()->getState().getX());
         msgToServerWithNoPath += ",'";
-        msgToServerWithNoPath += searchable->getGoalState()->getState().getY();
+        msgToServerWithNoPath += to_string(searchable->getGoalState()->getState().getY());
         msgToServerWithNoPath += ")";
         return msgToServerWithNoPath;
     }

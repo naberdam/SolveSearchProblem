@@ -17,6 +17,7 @@ private:
     double cost;
     State<T> *father;
     Direction direction;
+    double heuristicDistance;
 
 public:
 
@@ -38,6 +39,15 @@ public:
     bool operator==(State<T> another) {
         return (this->getState() == another.getState());
     }
+
+    double getHeuristicDistance() const {
+        return heuristicDistance;
+    }
+
+    void setHeuristicDistance(double heuristicDistance1) {
+        State::heuristicDistance = heuristicDistance1;
+    }
+
 
     virtual ~State() {
 

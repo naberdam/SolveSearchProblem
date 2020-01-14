@@ -5,15 +5,16 @@
 #ifndef UNTITLED2_ASTAR_H
 #define UNTITLED2_ASTAR_H
 
-#include "SearcherByPriorityQueue.h"
+#include "SearcherByPriorityQueueByComparator.h"
 
 using namespace std;
 
 template<class T>
-class AStar : public SearcherByPriorityQueue<string, T> {
+class AStar : public SearcherByPriorityQueueByComparator<string, T, ComparatorByHeuristic<T>> {
 public:
 
     virtual string search(Searchable<T> *searchable) {
+        searchable->getInitializeState()->setHeuristicDistance(0);
         this->addToOpenList(searchable->getInitializeState());
         while (this->getOpenListSize() > 0) {
             //start develop the node from openList
@@ -26,9 +27,11 @@ public:
                 this->deleteEverything();
                 return result;
             }
+            /*vector<State<T> *> neighboursOfNodeFromOpenLost = searchable->getPossibleNextStates(
+                    *nodeFromOpenListWeNeedToHandle);*/
             vector<State<T> *> neighboursOfNodeFromOpenLost = searchable->getPossibleNextStatesWithManhattan(
                     *nodeFromOpenListWeNeedToHandle, *searchable->getGoalState());
-            for (auto neighbour : neighboursOfNodeFromOpenLost) {
+            for (State<T> * neighbour : neighboursOfNodeFromOpenLost) {
                 if (!this->doWeHaveThisNodeInClosedList(neighbour) && !this->doWeHaveThisNodeInOpenList(neighbour)) {
                     neighbour->setFather(nodeFromOpenListWeNeedToHandle);
                     this->addToOpenList(neighbour);
@@ -47,6 +50,8 @@ public:
 
     }
 };
+
+
 
 
 #endif //UNTITLED2_ASTAR_H

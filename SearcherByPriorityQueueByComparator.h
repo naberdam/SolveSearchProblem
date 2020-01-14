@@ -2,24 +2,20 @@
 // Created by nerya on 13/01/2020.
 //
 
-#ifndef UNTITLED2_SEARCHERBYPRIORITYQUEUE_H
-#define UNTITLED2_SEARCHERBYPRIORITYQUEUE_H
+#ifndef UNTITLED2_SEARCHERBYPRIORITYQUEUEBYCOMPARATOR_H
+#define UNTITLED2_SEARCHERBYPRIORITYQUEUEBYCOMPARATOR_H
 
 #include "BackTraceSearcher.h"
+#include "ComparatorsForPriorityQueue.h"
 #include <set>
 
-template<class Solution, class T>
-class SearcherByPriorityQueue : public BackTraceSearcher<Solution, T> {
+template<class Solution, class T, class ComparatorToPriority>
+class SearcherByPriorityQueueByComparator : public BackTraceSearcher<Solution, T> {
 protected:
-    class ComparatorByCost {
-    public:
-        bool operator()(State<T> *leftSide, State<T> *rightSide) {
-            return leftSide->getCost() < rightSide->getCost();
-        }
-    };
+
 
     //maybe the member itself need to move into private section, depends on
-    multiset<State<T> *, ComparatorByCost> openList;
+    multiset<State<T> *, /*ComparatorByCost<T>*/ComparatorToPriority> openList;
     /*priority_queue<State<T>*, vector<State<T>*>, ComparatorByCost> openPriorityQueue;*/
     vector<State<T> *> closedList;
 
@@ -91,7 +87,7 @@ protected:
 public:
     virtual Solution search(Searchable<T> *searchable) = 0;
 
-    virtual ~SearcherByPriorityQueue() {}
+    virtual ~SearcherByPriorityQueueByComparator() {}
 };
 
-#endif //UNTITLED2_SEARCHERBYPRIORITYQUEUE_H
+#endif //UNTITLED2_SEARCHERBYPRIORITYQUEUEBYCOMPARATOR_H

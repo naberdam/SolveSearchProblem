@@ -6,14 +6,14 @@
 #ifndef UNTITLED2_BESTFIRSTSEARCH_H
 #define UNTITLED2_BESTFIRSTSEARCH_H
 
-#include "SearcherByPriorityQueue.h"
+#include "SearcherByPriorityQueueByComparator.h"
 #include <queue>
 #include <vector>
 
 using namespace std;
 
 template<class T>
-class BestFirstSearch : public SearcherByPriorityQueue<string, T> {
+class BestFirstSearch : public SearcherByPriorityQueueByComparator<string, T, ComparatorByCost<T>> {
 
 public:
     virtual string search(Searchable<T> *searchable) {

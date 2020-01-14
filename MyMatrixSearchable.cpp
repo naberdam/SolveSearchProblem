@@ -68,34 +68,49 @@ MyMatrixSearchable::getPossibleNextStatesWithManhattan(State<Point> &current, St
         int manhattanDistance = abs(goal.getState().getX() - (xCurrent + 1)) + abs(goal.getState().getY() - (yCurrent));
         manhattanDistance = abs(manhattanDistance - manhattanDistanceCurrent);
         Point *p1 = new Point(xCurrent + 1, yCurrent);
-        result.push_back(new State<Point>(p1,
-                                          current.getCost() + matrixStatesByPoints[xCurrent + 1][yCurrent]->getCost() +
-                                          manhattanDistance, &current, DOWN));
+        State<Point> *state1 = new State<Point>(p1,
+                                                current.getCost() +
+                                                matrixStatesByPoints[xCurrent + 1][yCurrent]->getCost(), &current,
+                                                DOWN);
+        state1->setHeuristicDistance(
+                current.getCost() + matrixStatesByPoints[xCurrent + 1][yCurrent]->getCost() + manhattanDistance);
+        result.push_back(state1);
     }
     if (yCurrent < width - 1 && matrixStatesByPoints[xCurrent][yCurrent + 1]->getCost() >= 0 &&
         fatherY != yCurrent + 1) {
         int manhattanDistance = abs(goal.getState().getX() - (xCurrent)) + abs(goal.getState().getY() - (yCurrent + 1));
         manhattanDistance = abs(manhattanDistance - manhattanDistanceCurrent);
         Point *p2 = new Point(xCurrent, yCurrent + 1);
-        result.push_back(new State<Point>(p2,
-                                          current.getCost() + matrixStatesByPoints[xCurrent][yCurrent + 1]->getCost() +
-                                          manhattanDistance, &current, RIGHT));
+        State<Point> *state2 = new State<Point>(p2,
+                                                current.getCost() +
+                                                matrixStatesByPoints[xCurrent][yCurrent + 1]->getCost(), &current,
+                                                RIGHT);
+        state2->setHeuristicDistance(
+                current.getCost() + matrixStatesByPoints[xCurrent][yCurrent + 1]->getCost() + manhattanDistance);
+        result.push_back(state2);
     }
     if (xCurrent > 0 && matrixStatesByPoints[xCurrent - 1][yCurrent]->getCost() >= 0 && fatherX != xCurrent - 1) {
         int manhattanDistance = abs(goal.getState().getX() - (xCurrent - 1)) + abs(goal.getState().getY() - (yCurrent));
         manhattanDistance = abs(manhattanDistance - manhattanDistanceCurrent);
         Point *p3 = new Point(xCurrent - 1, yCurrent);
-        result.push_back(new State<Point>(p3,
-                                          current.getCost() + matrixStatesByPoints[xCurrent - 1][yCurrent]->getCost() +
-                                          manhattanDistance, &current, UP));
+        State<Point> *state3 = new State<Point>(p3,
+                                                current.getCost() +
+                                                matrixStatesByPoints[xCurrent - 1][yCurrent]->getCost(), &current, UP);
+        state3->setHeuristicDistance(
+                current.getCost() + matrixStatesByPoints[xCurrent - 1][yCurrent]->getCost() + manhattanDistance);
+        result.push_back(state3);
     }
     if (yCurrent > 0 && matrixStatesByPoints[xCurrent][yCurrent - 1]->getCost() >= 0 && fatherY != yCurrent - 1) {
         int manhattanDistance = abs(goal.getState().getX() - (xCurrent)) + abs(goal.getState().getY() - (yCurrent - 1));
         manhattanDistance = abs(manhattanDistance - manhattanDistanceCurrent);
         Point *p4 = new Point(xCurrent, yCurrent - 1);
-        result.push_back(new State<Point>(p4,
-                                          current.getCost() + matrixStatesByPoints[xCurrent][yCurrent - 1]->getCost() +
-                                          manhattanDistance, &current, LEFT));
+        State<Point> *state4 = new State<Point>(p4,
+                                                current.getCost() +
+                                                matrixStatesByPoints[xCurrent][yCurrent - 1]->getCost(), &current,
+                                                LEFT);
+        state4->setHeuristicDistance(
+                current.getCost() + matrixStatesByPoints[xCurrent][yCurrent - 1]->getCost() + manhattanDistance);
+        result.push_back(state4);
     }
     return result;
 
