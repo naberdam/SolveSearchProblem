@@ -1,20 +1,18 @@
 //
-// Created by amitai on 09/01/2020.
+// Created by nerya on 14/01/2020.
 //
 
-#ifndef UNTITLED2_BESTFIRSTSEARCH_H
-#define UNTITLED2_BESTFIRSTSEARCH_H
+#ifndef UNTITLED2_ASTAR_H
+#define UNTITLED2_ASTAR_H
 
 #include "SearcherByPriorityQueue.h"
-#include <queue>
-#include <vector>
 
 using namespace std;
 
 template<class T>
-class BestFirstSearch : public SearcherByPriorityQueue<string, T> {
-
+class AStar : public SearcherByPriorityQueue<string, T> {
 public:
+
     virtual string search(Searchable<T> *searchable) {
         this->addToOpenList(searchable->getInitializeState());
         while (this->getOpenListSize() > 0) {
@@ -28,8 +26,8 @@ public:
                 this->deleteEverything();
                 return result;
             }
-            vector<State<T> *> neighboursOfNodeFromOpenLost = searchable->getPossibleNextStates(
-                    *nodeFromOpenListWeNeedToHandle);
+            vector<State<T> *> neighboursOfNodeFromOpenLost = searchable->getPossibleNextStatesWithManhattan(
+                    *nodeFromOpenListWeNeedToHandle, *searchable->getGoalState());
             for (auto neighbour : neighboursOfNodeFromOpenLost) {
                 if (!this->doWeHaveThisNodeInClosedList(neighbour) && !this->doWeHaveThisNodeInOpenList(neighbour)) {
                     neighbour->setFather(nodeFromOpenListWeNeedToHandle);
@@ -44,7 +42,7 @@ public:
         this->deleteEverything();
         return this->noPathFromInitializeToGoal(searchable);
     }
-
 };
 
-#endif //UNTITLED2_BESTFIRSTSEARCH_H
+
+#endif //UNTITLED2_ASTAR_H

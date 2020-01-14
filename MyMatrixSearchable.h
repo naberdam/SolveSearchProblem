@@ -38,6 +38,8 @@ public:
         return goalStateByPoint;
     }
 
+    virtual vector<State<Point> *> getPossibleNextStatesWithManhattan(State<Point> &current, State<Point> &goal);
+
     virtual vector<State<Point> *> getPossibleNextStates(State<Point> &current);
 
     friend ostream &operator<<(ostream &out, const MyMatrixSearchable *&c) {
