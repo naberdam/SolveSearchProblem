@@ -4,6 +4,7 @@
 
 #ifndef UNTITLED2_SEARCHERSOLVEROA_H
 #define UNTITLED2_SEARCHERSOLVEROA_H
+
 #include "Solver.h"
 #include "MyMatrixSearchable.h"
 #include "MatrixBuilder.h"
@@ -16,21 +17,25 @@
 #include <string>
 
 using namespace std;
-template <typename T>
-class SearcherSolver : public Solver<Searchable<T>*, string> {
+
+template<typename T>
+class SearcherSolver : public Solver<Searchable<T> *, string> {
 public:
 
     virtual string solve(Searchable<T> *problem) {
         Searcher<string, T> *bestFS = new AStar<T>();
-        cout << "succeed to enter SearcherSolver" << endl;
         string result = bestFS->search(problem);
-        cout << "succeed to enter SearcherSolver2" << endl;
-        cout << bestFS->getNumberOfNodesEvaluated() << endl;
         delete bestFS;
-        cout << result << endl;
         return result;
     }
+
+    virtual ~SearcherSolver();
 };
 
 
 #endif //UNTITLED2_SEARCHERSOLVEROA_H
+
+template<typename T>
+SearcherSolver<T>::~SearcherSolver() {
+
+}

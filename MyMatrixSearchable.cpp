@@ -74,6 +74,10 @@ vector<State<Point>*> MyMatrixSearchable::getPossibleNextStatesWithManhattan(Sta
 
 }
 
+MyMatrixSearchable::~MyMatrixSearchable() {
+
+}
+
 
 
 

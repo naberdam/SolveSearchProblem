@@ -7,13 +7,18 @@
 
 #include "BackTraceSearcher.h"
 
-template <class Solution, class T>
+template<class Solution, class T>
 class SearcherByStack : public BackTraceSearcher<Solution, T> {
 
 protected:
+public:
+    virtual ~SearcherByStack() {
 
-    stack<State<T>*> openList;
-    vector<State<T>*> closedList;
+    }
+
+protected:
+    stack<State<T> *> openList;
+    vector<State<T> *> closedList;
 
     virtual State<T> *popOpenList() {
         this->increaseNumberOfNodesEvaluated();
@@ -36,7 +41,7 @@ protected:
 
     virtual bool doWeHaveThisNodeInOpenList(State<T> *current) {
         bool isFound = false;
-        stack<State<T>*> temp;
+        stack<State<T> *> temp;
         while (!openList.empty()) {
             if (*openList.top() == *current) {
                 isFound = true;
@@ -76,7 +81,6 @@ public:
     virtual Solution search(Searchable<T> *searchable) = 0;
 
 };
-
 
 
 #endif //UNTITLED2_SEARCHERBYSTACK_H

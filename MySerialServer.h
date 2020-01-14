@@ -18,7 +18,7 @@
 
 using namespace std;
 
-template<class P, class S>
+template<class Problem, class Solution>
 static void *start(int port, ClientHandler *clientHandler) {
     int sockfd, newsockfd;
     struct sockaddr_in serv_addr;
@@ -68,13 +68,13 @@ static void *start(int port, ClientHandler *clientHandler) {
 }
 
 
-template<class P, class S>
-class MySerialServer : public server_side::Server<P, S> {
+template<class Problem, class Solution>
+class MySerialServer : public server_side::Server<Problem, Solution> {
 public:
     virtual void open(int port, ClientHandler *clientHandler) {
         server_side::isConnecting = true;
-        thread thr1(start<P, S>, port, clientHandler);
-        thr1.detach();
+        thread thr1(start<Problem, Solution>, port, clientHandler);
+        thr1.join();
 
     }
 

@@ -48,7 +48,7 @@ public:
             if (prob.size() > 0) {
                 string ans;
                 if (this->cm->isSavedSolution(prob)) {
-                    cout << "save solution" << endl;
+                    cout << "we have solution" << endl;
                     ans = this->cm->getSolution(prob);
                 } else {
                     cout << "we dont have solution" << endl;

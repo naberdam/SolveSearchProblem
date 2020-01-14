@@ -30,6 +30,8 @@ public:
         length = matrixStatesByPoints.size();
     }
 
+    virtual ~MyMatrixSearchable();
+
     virtual State<Point> *getInitializeState() {
         return initStateByPoint;
     }

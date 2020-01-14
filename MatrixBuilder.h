@@ -13,6 +13,8 @@
 #include "State.h"
 class MatrixBuilder {
 public:
+    virtual ~MatrixBuilder();
+
     static MyMatrixSearchable* createMatrix(vector<vector<double>> detailsOnMatrix, string matrixToString);
 
 };

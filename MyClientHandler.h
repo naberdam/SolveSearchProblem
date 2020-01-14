@@ -60,10 +60,10 @@ public:
         }
         MyMatrixSearchable* matrixSearchable = MatrixBuilder::createMatrix(detailsOnMatrix, problem);
         if (this->cacheManager->isSavedSolution(problem)) {
-            cout << "save solution" << endl;
+            cout << "There is a solution" << endl;
             solution = this->cacheManager->getSolution(problem);
         } else {
-            cout << "we dont have solution" << endl;
+            cout << "we dont have solution, but we will find for you" << endl;
             solution = this->solver->solve(matrixSearchable);
             this->cacheManager->saveSolution(problem, solution);
         }

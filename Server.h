@@ -10,11 +10,16 @@
 
 namespace server_side {
     static bool isConnecting = true;
-    template<class P, class S>
+
+    template<class Problem, class Solution>
     class Server {
     public:
         //open the server in the port and wait for the customer - connection
-        virtual void open(int port, ClientHandler* c) = 0;
+        virtual void open(int port, ClientHandler *c) = 0;
+
+        virtual ~Server() {
+
+        }
 
         //close the server
         virtual void stop() = 0;

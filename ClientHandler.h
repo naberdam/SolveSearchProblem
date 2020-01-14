@@ -13,6 +13,10 @@ using namespace std;
 
 class ClientHandler {
 public:
+    virtual ~ClientHandler() {
+
+    }
+
     virtual void handleClient(int socket) = 0;
 };
 

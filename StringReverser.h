@@ -8,8 +8,9 @@
 #include <string>
 
 using namespace std;
-template <typename Problem, typename Solution>
-class StringReverser : public Solver<string, string>{
+
+template<typename Problem, typename Solution>
+class StringReverser : public Solver<string, string> {
 public:
     virtual string solve(string strWeWantToReverse) {
         int n = strWeWantToReverse.length();
@@ -19,5 +20,10 @@ public:
         }
         return strWeWantToReverse;
     }
+
+    virtual ~StringReverser() {
+
+    }
 };
+
 #endif //UNTITELD2_STRINGREVSER_H

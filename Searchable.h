@@ -4,6 +4,7 @@
 
 #ifndef UNTITELD2_SEARCHABLE_H
 #define UNTITELD2_SEARCHABLE_H
+
 #include "State.h"
 #include <vector>
 #include <string>
@@ -15,17 +16,24 @@ using namespace std;
 template<class T>
 class Searchable {
 public:
-    //get the initialize state - the source
+    // get the start of the way
     virtual State<T> *getInitializeState() = 0;
 
-    //return the goal state - the detination state
+    //return the goal state of the way
     virtual State<T> *getGoalState() = 0;
 
-    //return all the possible states - the structure in a vector
-    virtual vector<State<T>*> getPossibleNextStates(State<T> &current) = 0;
+    // return all of the possible place that we can go to them
+    virtual vector<State<T> *> getPossibleNextStates(State<T> &current) = 0;
 
-    //return all the possible states with
+    // return all of the possible states for the huristic
     virtual vector<State<T> *> getPossibleNextStatesWithManhattan(State<T> &current, State<T> &goal) = 0;
+
+    virtual ~Searchable();
 };
+
+template<class T>
+Searchable<T>::~Searchable() {
+
+}
 
 #endif //UNTITELD2_SEARCHABLE_H

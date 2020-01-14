@@ -23,20 +23,13 @@ public:
     virtual Solution getSolution(Problem problem)= 0;
 
     virtual void saveSolution(Problem problem, Solution solution)=0 ;
+
+    virtual ~CacheManager();
 };
 
-/*template<class Problem, class Solution>
-bool CacheManager<Problem, Solution>::isSavedSolution(Problem problem) {
-    return solutions.count(problem) != 0;
+template<class Problem, class Solution>
+CacheManager<Problem, Solution>::~CacheManager() {
+
 }
 
-template<class Problem, class Solution>
-Solution CacheManager<Problem, Solution>::getSolution(Problem problem) {
-    return solutions[problem];
-}
-
-template<class Problem, class Solution>
-void CacheManager<Problem, Solution>::saveSolution(Problem problem, Solution solution) {
-    solutions[problem] = solution;
-}*/
 #endif //SOLIDPROJECT_EX2_CACHEMANAGER_H

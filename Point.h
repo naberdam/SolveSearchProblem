@@ -17,6 +17,9 @@ public:
         this->x=x1;
     }
 
+    virtual ~Point() {
+
+    }
 
     void setY(int y1){
         this->y=y1;
@@ -29,7 +32,7 @@ public:
     int getY(){
         return this->y;
     }
-
+    // just for readable
     bool operator==(Point another) {
         return ((this->getX() == another.getX()) && (this->getY() == another.getY()));
     }

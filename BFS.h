@@ -33,6 +33,10 @@ public:
         this->deleteEverything();
         return this->noPathFromInitializeToGoal(searchable);
     }
+
+    virtual ~BFS() {
+
+    }
 };
 
 

@@ -46,6 +46,9 @@ public:
         return this->noPathFromInitializeToGoal(searchable);
     }
 
+    virtual ~BestFirstSearch() {
+
+    }
 };
 
 #endif //UNTITLED2_BESTFIRSTSEARCH_H

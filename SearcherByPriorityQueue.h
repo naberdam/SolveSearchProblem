@@ -88,9 +88,10 @@ protected:
         closedList.clear();
     }
 
-
 public:
     virtual Solution search(Searchable<T> *searchable) = 0;
+
+    virtual ~SearcherByPriorityQueue() {}
 };
 
 #endif //UNTITLED2_SEARCHERBYPRIORITYQUEUE_H

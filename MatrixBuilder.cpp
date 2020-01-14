@@ -29,3 +29,7 @@ MyMatrixSearchable *MatrixBuilder::createMatrix(vector<vector<double> > detailsO
                                                                     matrixToString);
     return myMatrixSearchable;
 }
+
+MatrixBuilder::~MatrixBuilder() {
+
+}

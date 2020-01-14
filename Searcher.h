@@ -11,7 +11,7 @@
 #include "Searchable.h"
 
 //interface for all the methods of searcher
-template <class Solution, class T>
+template<class Solution, class T>
 class Searcher {
 public:
     virtual Solution search(Searchable<T> *searchable) = 0;

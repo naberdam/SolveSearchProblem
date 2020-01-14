@@ -35,6 +35,10 @@ public:
         this->deleteEverything();
         return this->noPathFromInitializeToGoal(searchable);
     }
+
+    virtual ~DFS() {
+
+    }
 };
 
 #endif //UNTITLED2_DFS_H
