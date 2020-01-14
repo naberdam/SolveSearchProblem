@@ -18,8 +18,16 @@ private:
     string setCostInResult(State<T>* item) {
         string result;
         result += to_string(item->getCost());
-        result += "), ";
+        result += ")";
         return result;
+    }
+
+    string firstAddingToResultOrNot(bool &firstTimeAddingToResult) {
+        if (firstTimeAddingToResult) {
+            firstTimeAddingToResult = false;
+            return "";
+        }
+        return ", ";
     }
 
 protected:
@@ -38,23 +46,28 @@ protected:
         }
         //push the initializeState because it did not enter int the while loop
         trace.push(searchable->getInitializeState());
+        bool firstTimeAddingToResult = true;
 
         while (!trace.empty()) {
             State<T>* item = trace.top();
             switch (item->getDirection()) {
                 case UP:
+                    result += firstAddingToResultOrNot(firstTimeAddingToResult);
                     result += "Up (";
                     result += this->setCostInResult(item);
                     break;
                 case DOWN:
+                    result += firstAddingToResultOrNot(firstTimeAddingToResult);
                     result += "Down (";
                     result += this->setCostInResult(item);
                     break;
                 case LEFT:
+                    result += firstAddingToResultOrNot(firstTimeAddingToResult);
                     result += "Left (";
                     result += this->setCostInResult(item);
                     break;
                 case RIGHT:
+                    result += firstAddingToResultOrNot(firstTimeAddingToResult);
                     result += "Right (";
                     result += this->setCostInResult(item);
                     break;
@@ -63,7 +76,6 @@ protected:
             }
             trace.pop();
         }
-        result.pop_back();
         return result;
     }
 

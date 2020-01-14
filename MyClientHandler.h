@@ -19,44 +19,59 @@
 #include "MatrixBuilder.h"
 #include "MyMatrixSearchable.h"
 
-template <class T>
-class MyClientHandler : public ClientHandler{
+template<class T>
+class MyClientHandler : public ClientHandler {
 private:
-    Solver<Searchable<T>*, string> *solver;
+    Solver<Searchable<T> *, string> *solver;
     CacheManager<string, string> *cacheManager;
 
 public:
 
-    MyClientHandler(CacheManager<string, string> *cacheManager, Solver<Searchable<T>*, string> *solver) : cacheManager(cacheManager), solver(solver) {}
+    MyClientHandler(CacheManager<string, string> *cacheManager, Solver<Searchable<T> *, string> *solver) : cacheManager(
+            cacheManager), solver(solver) {}
 
     virtual void handleClient(int socket) {
         //enter into string the info from the socket
-        string problem = "";
-        string currentLine = "";
-        string previousLine = "";
+        string problem;
+        string currentLine;
         string solution;
         char buffer[BUFFER_SIZE] = {0};
         vector<vector<double>> detailsOnMatrix;
-        while (true) {
+        bool endOfMatrix = false;
+        while (!endOfMatrix) {
             unsigned int k = 0;
             for (; k < BUFFER_SIZE; ++k) {
                 buffer[k] = '\0';
             }
             ssize_t numBytesRead = recv(socket, buffer, BUFFER_SIZE, 0);
             if (numBytesRead > 0) {
-                string check = buffer;
-                stringstream ss(check);
+                unsigned int i;
+                for (i = 0; i < numBytesRead; i++) {
+                    char c = buffer[i];
+                    if (c == '\n') {
+                        if (currentLine.length() > 0) {
+                            if (currentLine == "end") {
+                                endOfMatrix = true;
+                                break;
+                            }
+                            detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(currentLine));
+                            problem += currentLine + "\n";
+                            currentLine.clear();
+                        }
+                    } else currentLine += c;
+                }
+                /*string check = buffer;
                 cout << buffer << endl;
-                ssize_t lineAmount = count(check.begin(), check.end(), DELIMITER);
                 string endStr = check.substr(0, 3);
                 if (!strcmp(endStr.c_str(), "end")) {
                     break;
                 }
                 check += "\n";
                 detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(check));
-                problem += check;
+                problem += check;*/
             }
         }
+        cout << problem << endl;
         MyMatrixSearchable *matrixSearchable = MatrixBuilder::createMatrix(detailsOnMatrix, problem);
         if (this->cacheManager->isSavedSolution(problem)) {
             cout << "There is a solution" << endl;
@@ -66,7 +81,6 @@ public:
             solution = this->solver->solve(matrixSearchable);
             this->cacheManager->saveSolution(problem, solution);
         }
-
         write(socket, solution.c_str(), solution.length());
     }
 
