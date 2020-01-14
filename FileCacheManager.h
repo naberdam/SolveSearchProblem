@@ -4,6 +4,7 @@
 
 #ifndef SOLIDPROJECT_EX2_FILECACHEMANAGER_H
 #define SOLIDPROJECT_EX2_FILECACHEMANAGER_H
+
 #include <vector>
 #include <string>
 #include <unordered_map>
@@ -20,77 +21,51 @@
 
 #define CACHE_NAME_FILE "file"
 using namespace std;
-template <typename Problem, typename Solution>
+
+template<typename Problem, typename Solution>
 class FileCacheManager : public CacheManager<Problem, Solution> {
 private:
-    int capacityOfCache;
-    unordered_map<string, pair<const char*, list<string>::iterator>> mapOfCache;
-    list<string> listOfKeys;
+    int numFiles = 0;
+    unordered_map<string, string> mapOfCache;
 public:
-    void insert(string prob, const char* sol) {
-        insertObjectToFile(prob, sol);
-        auto checkObject = mapOfCache.find(prob);
-        if (checkObject != mapOfCache.end()) {
-            lru(checkObject);
-            for (auto itr = listOfKeys.begin(); itr != listOfKeys.end(); itr++) {
-                if ((*itr) == prob) {
-                    listOfKeys.erase(itr);
-                    break;
-                }
-            }
-            mapOfCache[prob] = {sol, listOfKeys.begin()};
-
-        } else if (mapOfCache.size() == (unsigned) capacityOfCache) {
-            mapOfCache.erase(listOfKeys.back());
-            listOfKeys.pop_back();
+    virtual bool isSavedSolution(Problem problem) {
+        if (mapOfCache.count(problem) > 0) {
+            return true;
         }
-        listOfKeys.push_front(prob);
-        mapOfCache.insert({prob, {sol, listOfKeys.begin()}});
+        return false;
     }
 
+    virtual Solution getSolution(Problem problem) {
+        if (isSavedSolution(problem)) {
+            string nameFile = std::string(mapOfCache[problem]);
+            string solution;
+            ifstream file;
+            file.open(nameFile);
+            getline(file, solution);
+            return solution;
+        }
+    }
+
+
+    virtual void saveSolution(Problem problem, Solution solution) {
+        string nameOfFile = "FileSolution_" + std::to_string(numFiles);
+        insertObjectToFile(solution, nameOfFile);
+        mapOfCache.insert({problem, nameOfFile});
+    }
     virtual ~FileCacheManager() {
 
     }
 
-    void lru(typename unordered_map<string, pair<const char*, list<string>::iterator>>::iterator &it) {
-        listOfKeys.erase(it->second.second);
-        listOfKeys.push_front(it->first);
-        it->second.second = listOfKeys.begin();
-    }
-
-    template<class Func>
-    void foreach(Func f) {
-        for (auto it = listOfKeys.begin(); it != listOfKeys.end(); ++it) {
-            f(mapOfCache.find(*it)->second.first);
-        }
-    }
-
-    const char* checkItemInFile(string key) {
-        const char* objectFromCacheOrFile;
-        fstream inputTxt;
-        inputTxt.open(key, ios::in | ios::binary);
-        if (!inputTxt) {
-            throw "Error: problem with open the text file";
-        }
-        if (inputTxt.read((char *) &objectFromCacheOrFile, sizeof(objectFromCacheOrFile))) {
-            inputTxt.close();
-            insert(key, objectFromCacheOrFile);
-            auto item = mapOfCache.find(key);
-            lru(item);
-            return objectFromCacheOrFile;
-        } else {
-            throw "Error:problem in reading data from text file";
-        }
-    }
-
-    void insertObjectToFile(string key, const char* newObject) {
+    void insertObjectToFile(string solution, string nameOfFileOfSolution) {
         fstream file;
-        file.open(key, ios::out | ios::binary);
+        ofstream file1(nameOfFileOfSolution);
+        file.open("FileSolution_" + std::to_string(numFiles), ios::out | ios::binary);
         if (!file) {
             throw "Error: problem with open the text file";
         }
-        file.write((char *) &newObject, sizeof(newObject));
-        file.close();
+        file1 << solution;
+        file1.close();
+        numFiles++;
     }
 };
 

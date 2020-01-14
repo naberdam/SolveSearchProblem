@@ -47,8 +47,9 @@ public:
             ssize_t numBytesRead = recv(socket, buffer, BUFFER_SIZE, 0);
             if (numBytesRead > 0) {
                 string check = buffer;
+                stringstream ss(check);
                 cout<<buffer<<endl;
-                /*ssize_t lineAmount = count(check.begin(), check.end(), DELIMITER);*/
+                ssize_t lineAmount = count(check.begin(), check.end(), DELIMITER);
                 string endStr = check.substr(0, 3);
                 if (!strcmp(endStr.c_str(), "end")) {
                     break;

@@ -18,28 +18,25 @@ protected:
     map<Problem, Solution> solutions;
 
 public:
-    virtual bool isSavedSolution(Problem problem);
+    virtual bool isSavedSolution(Problem problem) = 0;
 
-    virtual Solution getSolution(Problem problem);
+    virtual Solution getSolution(Problem problem)= 0;
 
-    virtual void saveSolution(Problem problem, Solution solution);
+    virtual void saveSolution(Problem problem, Solution solution)=0 ;
 };
 
-template<class Problem, class Solution>
+/*template<class Problem, class Solution>
 bool CacheManager<Problem, Solution>::isSavedSolution(Problem problem) {
-    /*cout<<"isSavedSolution"<<endl;*/
     return solutions.count(problem) != 0;
 }
 
 template<class Problem, class Solution>
 Solution CacheManager<Problem, Solution>::getSolution(Problem problem) {
-    /*cout<<"getSolution"<<endl;*/
     return solutions[problem];
 }
 
 template<class Problem, class Solution>
 void CacheManager<Problem, Solution>::saveSolution(Problem problem, Solution solution) {
-    /*cout<<"saveSolution"<<endl;*/
     solutions[problem] = solution;
-}
+}*/
 #endif //SOLIDPROJECT_EX2_CACHEMANAGER_H
