@@ -5,11 +5,11 @@
 #ifndef UNTITLED2_SEARCHERBYPRIORITYQUEUE_H
 #define UNTITLED2_SEARCHERBYPRIORITYQUEUE_H
 
-#include "MySearcher.h"
+#include "BackTraceSearcher.h"
 #include <set>
 
 template<class Solution, class T>
-class SearcherByPriorityQueue : public MySearcher<Solution, T> {
+class SearcherByPriorityQueue : public BackTraceSearcher<Solution, T> {
 protected:
     class ComparatorByCost {
     public:

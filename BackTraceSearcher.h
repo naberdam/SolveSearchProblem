@@ -2,14 +2,14 @@
 // Created by nerya on 13/01/2020.
 //
 
-#ifndef UNTITLED2_MYSEARCHER_H
-#define UNTITLED2_MYSEARCHER_H
+#ifndef UNTITLED2_BACKTRACESEARCHER_H
+#define UNTITLED2_BACKTRACESEARCHER_H
 
 #include "Searcher.h"
 #include <stack>
 template <class Solution, class T>
 
-class MySearcher : public Searcher<Solution, T> {
+class BackTraceSearcher : public Searcher<Solution, T> {
 private:
     unsigned long evaluatedNodes;
 
@@ -55,7 +55,7 @@ protected:
     }
 
 public:
-    MySearcher() : evaluatedNodes(0) {}
+    BackTraceSearcher() : evaluatedNodes(0) {}
 
     virtual Solution search(Searchable<T> *searchable) = 0;
 
@@ -63,9 +63,9 @@ public:
         return evaluatedNodes;
     }
 
-    virtual ~MySearcher() {}
+    virtual ~BackTraceSearcher() {}
 
 
 };
 
-#endif //UNTITLED2_MYSEARCHER_H
+#endif //UNTITLED2_BACKTRACESEARCHER_H
