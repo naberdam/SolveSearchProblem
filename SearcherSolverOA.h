@@ -25,8 +25,6 @@ public:
     virtual string solve(Searchable<T> *problem) {
         Searcher<string, T> *bestFS = new AStar<T>();
         string result = bestFS->search(problem);
-        cout<<"9999999999999999"<<endl;
-
         delete bestFS;
         return result;
     }
