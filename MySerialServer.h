@@ -75,9 +75,7 @@ public:
         server_side::isConnecting = true;
         thread thr1(start<Problem, Solution>, port, clientHandler);
         thr1.join();
-
     }
-
 
     virtual void stop() {
         server_side::isConnecting = false;
