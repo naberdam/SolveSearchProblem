@@ -8,9 +8,10 @@
 #include "MyMatrixSearchable.h"
 #include "MatrixBuilder.h"
 #include "Searcher.h"
-/*#include "AStarSearcher.h"*/
+#include "AStar.h"
 #include "BestFirstSearch.h"
 #include "BFS.h"
+#include "DFS.h"
 #include <vector>
 #include <string>
 
@@ -20,7 +21,7 @@ class SearcherSolver : public Solver<Searchable<T>*, string> {
 public:
 
     virtual string solve(Searchable<T> *problem) {
-        Searcher<string, T> *bestFS = new BFS<T>();
+        Searcher<string, T> *bestFS = new AStar<T>();
         cout << "succeed to enter SearcherSolver" << endl;
         string result = bestFS->search(problem);
         cout << "succeed to enter SearcherSolver2" << endl;

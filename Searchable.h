@@ -23,6 +23,9 @@ public:
 
     //return all the possible states - the structure in a vector
     virtual vector<State<T>*> getPossibleNextStates(State<T> &current) = 0;
+
+    //return all the possible states with
+    virtual vector<State<T> *> getPossibleNextStatesWithManhattan(State<T> &current, State<T> &goal) = 0;
 };
 
 #endif //UNTITELD2_SEARCHABLE_H
