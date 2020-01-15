@@ -27,6 +27,7 @@ namespace boot {
             auto solver = new SearcherSolver<Point>();
             auto *c = new MyClientHandler<Point>(cm, solver);
             auto s = MySerialServer<string,string>();
+            //open the server and start the algorithm
             s.open(atoi(argv[1]), c);
         }
     };

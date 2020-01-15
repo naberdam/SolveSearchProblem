@@ -21,9 +21,7 @@ public:
         return strWeWantToReverse;
     }
 
-    virtual ~StringReverser() {
-
-    }
+    virtual ~StringReverser() {}
 };
 
 #endif //UNTITELD2_STRINGREVSER_H

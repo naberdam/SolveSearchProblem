@@ -13,7 +13,6 @@ class SearcherByQueue : public BackTraceSearcher<Solution, T> {
 public:
 
     queue<State<T>*> openList;
-    /*unordered_set<State<T>*> closedList;*/
     vector<State<T>*> closedList;
 
     virtual State<T> *popOpenList() {
@@ -34,6 +33,7 @@ public:
         closedList.push_back(current);
     }
 
+    //check if we have current in closedList
     virtual bool doWeHaveThisNodeInClosedList(State<T> *current) {
         for (auto node : closedList) {
             if (*current == *node) {
@@ -43,7 +43,8 @@ public:
         return false;
     }
 
-    vector<State<T>*> vectorOfOpenList() {
+    //copy openList to another temp vector
+    virtual vector<State<T>*> vectorOfOpenList() {
         vector<State<T>*> openListVector;
         while (!openList.empty()) {
             openListVector.push_back(openList.front());
@@ -55,13 +56,17 @@ public:
         return openListVector;
     }
 
+    //check if we have current in openList
     virtual bool doWeHaveThisNodeInOpenList(State<T> *current) {
+        //copy openList to openListVector for iteration
         vector<State<T>*> openListVector = vectorOfOpenList();
         for (auto item : openListVector) {
+            //we have current in openList
             if (*current == *item) {
                 return true;
             }
         }
+        //we do not have current in openList
         return false;
     }
 

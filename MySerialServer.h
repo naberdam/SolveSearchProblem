@@ -46,10 +46,12 @@ static void *start(int port, ClientHandler *clientHandler) {
     timeout.tv_usec = 0;
     setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
 
+    //as long as we are connect to server
     while (server_side::isConnecting) {
         listen(sockfd, 20000);
         struct sockaddr_in cli_addr;
         socklen_t clilen = sizeof(cli_addr);
+        //waiting for accepting
         newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
 
         if (newsockfd < 0) {
@@ -63,6 +65,7 @@ static void *start(int port, ClientHandler *clientHandler) {
                 break;
             }
         }
+        //handle client we accept and solve his problem
         clientHandler->handleClient(newsockfd);
     }
 }

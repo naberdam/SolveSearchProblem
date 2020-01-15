@@ -13,12 +13,12 @@ template<class Solution, class T, class ComparatorToPriority>
 class SearcherByPriorityQueueByComparator : public BackTraceSearcher<Solution, T> {
 protected:
 
-
-    //maybe the member itself need to move into private section, depends on
-    multiset<State<T> *, /*ComparatorByCost<T>*/ComparatorToPriority> openList;
-    /*priority_queue<State<T>*, vector<State<T>*>, ComparatorByCost> openPriorityQueue;*/
+    //multiset that used as priority queue and it has generic comparator
+    //according the algorithm that use this class
+    multiset<State<T> *, ComparatorToPriority> openList;
     vector<State<T> *> closedList;
 
+    //pop from openList and update the multiset by using the comparator
     virtual State<T> *popOpenList() {
         this->increaseNumberOfNodesEvaluated();
         auto iter = openList.begin();
@@ -39,15 +39,19 @@ protected:
         closedList.push_back(current);
     }
 
+    //check if we have current in openList
     virtual bool doWeHaveThisNodeInOpenList(State<T> *current) {
-        for (auto state : openList) {
-            if (*current == *state) {
+        for (auto item : openList) {
+            //we have current in openList
+            if (*current == *item) {
                 return true;
             }
         }
+        //we do not have current in openList
         return false;
     }
 
+    //check if we have current in closedList
     virtual bool doWeHaveThisNodeInClosedList(State<T> *current) {
         for (auto node : closedList) {
             if (*current == *node) {
@@ -57,6 +61,7 @@ protected:
         return false;
     }
 
+    //update cost item that is in openList if his cost is bigger than cost of current
     void updateCostItemInOpenList(State<T> *item, State<T> *current) {
         if (item->getCost() > current->getCost()) {
             openList.erase(item);
@@ -65,6 +70,7 @@ protected:
         }
     }
 
+    //update openList - add current to the list or update his cost in openList if there it is needed
     void updateStatePriority(State<T> *current) {
         bool wasFound = false;
         for (auto item : openList) {

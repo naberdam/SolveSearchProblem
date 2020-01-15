@@ -24,19 +24,15 @@ public:
 
     virtual string solve(Searchable<T> *problem) {
         Searcher<string, T> *bestFS = new AStar<T>();
+        //get solution of problem
         string result = bestFS->search(problem);
         cout << bestFS->getNumberOfNodesEvaluated() << endl;
         delete bestFS;
         return result;
     }
 
-    virtual ~SearcherSolver();
+    virtual ~SearcherSolver() {}
 };
 
 
 #endif //UNTITLED2_SEARCHERSOLVEROA_H
-
-template<typename T>
-SearcherSolver<T>::~SearcherSolver() {
-
-}

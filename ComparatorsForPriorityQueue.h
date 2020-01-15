@@ -7,6 +7,8 @@
 
 #include "State.h"
 
+
+//comparator by cost for BestFirstSearch algorithm
 template <class T>
 class ComparatorByCost {
 public:
@@ -15,6 +17,8 @@ public:
     }
 };
 
+
+//comparator by heuristic for AStar algorithm
 template <class T>
 class ComparatorByHeuristic {
 public:

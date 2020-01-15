@@ -11,12 +11,6 @@ template<class Solution, class T>
 class SearcherByStack : public BackTraceSearcher<Solution, T> {
 
 protected:
-public:
-    virtual ~SearcherByStack() {
-
-    }
-
-protected:
     stack<State<T> *> openList;
     vector<State<T> *> closedList;
 
@@ -39,8 +33,10 @@ protected:
         closedList.push_back(current);
     }
 
+    //check if we have current in openList
     virtual bool doWeHaveThisNodeInOpenList(State<T> *current) {
         bool isFound = false;
+        //temp is the opposite of openList
         stack<State<T> *> temp;
         while (!openList.empty()) {
             if (*openList.top() == *current) {
@@ -50,6 +46,7 @@ protected:
             temp.push(openList.top());
             openList.pop();
         }
+        //return openList to its normal state
         while (!temp.empty()) {
             openList.push(temp.top());
             temp.pop();
@@ -58,11 +55,14 @@ protected:
     }
 
     virtual bool doWeHaveThisNodeInClosedList(State<T> *current) {
-        for (auto node : closedList) {
-            if (*current == *node) {
+        //check if we have current in openList
+        for (auto item : closedList) {
+            //we have current in openList
+            if (*current == *item) {
                 return true;
             }
         }
+        //we do not have current in openList
         return false;
     }
 
@@ -79,6 +79,8 @@ protected:
 public:
 
     virtual Solution search(Searchable<T> *searchable) = 0;
+
+    virtual ~SearcherByStack() {}
 
 };
 

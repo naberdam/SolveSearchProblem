@@ -3,9 +3,6 @@
 //
 
 #ifndef UNTITLED2_MATRIXBUILDER_H
-/*
-#define DELIMITER ','
-*/
 #define UNTITLED2_MATRIXBUILDER_H
 
 

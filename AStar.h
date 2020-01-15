@@ -33,7 +33,7 @@ public:
                     *nodeFromOpenListWeNeedToHandle, *searchable->getGoalState());
             for (State<T> * neighbour : neighboursOfNodeFromOpenLost) {
                 if (!this->doWeHaveThisNodeInClosedList(neighbour) && !this->doWeHaveThisNodeInOpenList(neighbour)) {
-                    neighbour->setFather(nodeFromOpenListWeNeedToHandle);
+                    /*neighbour->setFather(nodeFromOpenListWeNeedToHandle);*/
                     this->addToOpenList(neighbour);
                 } else if (this->doWeHaveThisNodeInClosedList(neighbour)) {
                     continue;

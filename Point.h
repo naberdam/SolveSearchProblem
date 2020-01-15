@@ -13,17 +13,7 @@ public:
         this->y=y1;
     }
 
-    void setX(int x1){
-        this->x=x1;
-    }
-
-    virtual ~Point() {
-
-    }
-
-    void setY(int y1){
-        this->y=y1;
-    }
+    virtual ~Point() {}
 
     int getX(){
         return this->x;
@@ -32,7 +22,7 @@ public:
     int getY(){
         return this->y;
     }
-    // just for readable
+    //overloading operator ==
     bool operator==(Point another) {
         return ((this->getX() == another.getX()) && (this->getY() == another.getY()));
     }

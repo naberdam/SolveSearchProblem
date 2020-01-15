@@ -15,6 +15,7 @@ private:
     //how much nodes did i use to go the goalState
     unsigned long evaluatedNodes;
 
+    //function that add the cost of this item to the result that will send to server
     string setCostInResult(State<T>* item) {
         string result;
         result += to_string(item->getCost());
@@ -22,6 +23,7 @@ private:
         return result;
     }
 
+    //function that checks if it is the first time we write something to result and then decide to send coma or not
     string firstAddingToResultOrNot(bool &firstTimeAddingToResult) {
         if (firstTimeAddingToResult) {
             firstTimeAddingToResult = false;
@@ -46,6 +48,7 @@ protected:
         }
         //push the initializeState because it did not enter int the while loop
         trace.push(searchable->getInitializeState());
+        //boolean variable that tells us if we need to put ',' or not
         bool firstTimeAddingToResult = true;
 
         while (!trace.empty()) {
@@ -54,21 +57,25 @@ protected:
                 case UP:
                     result += firstAddingToResultOrNot(firstTimeAddingToResult);
                     result += "Up (";
+                    //add the cost of this item to result
                     result += this->setCostInResult(item);
                     break;
                 case DOWN:
                     result += firstAddingToResultOrNot(firstTimeAddingToResult);
                     result += "Down (";
+                    //add the cost of this item to result
                     result += this->setCostInResult(item);
                     break;
                 case LEFT:
                     result += firstAddingToResultOrNot(firstTimeAddingToResult);
                     result += "Left (";
+                    //add the cost of this item to result
                     result += this->setCostInResult(item);
                     break;
                 case RIGHT:
                     result += firstAddingToResultOrNot(firstTimeAddingToResult);
                     result += "Right (";
+                    //add the cost of this item to result
                     result += this->setCostInResult(item);
                     break;
                 default:
@@ -80,6 +87,9 @@ protected:
     }
 
     virtual string noPathFromInitializeToGoal(Searchable<T> *searchable) {
+        //return a massage to server if there is no path from initializeState to goalState
+        //the massage will be in this format:
+        //"there is not trace from (x1,y1) to (x2,y2)
         string msgToServerWithNoPath;
         msgToServerWithNoPath += "there is not trace from (";
         msgToServerWithNoPath += to_string(searchable->getInitializeState()->getState().getX());
@@ -97,12 +107,25 @@ protected:
         ++evaluatedNodes;
     }
 
+    //pop the item in the top of openList and if an update is needed, then update
     virtual State<T> *popOpenList() = 0;
+
+    //get the size of openList, so we will know when to end the loop in case there is no path
     virtual unsigned long getOpenListSize() = 0;
+
+    //add current to openList and if an update is needed, then update
     virtual void addToOpenList(State<T> *current) = 0;
+
+    //add current to closeList
     virtual void addToCloseList(State<T> *current) = 0;
+
+    //boolean function for checking if current is in openList
     virtual bool doWeHaveThisNodeInOpenList(State<T> *current) = 0;
+
+    //boolean function for checking if current is in closedList
     virtual bool doWeHaveThisNodeInClosedList(State<T> *current) = 0;
+
+    //delete everything
     virtual void deleteEverything() = 0;
 
 public:

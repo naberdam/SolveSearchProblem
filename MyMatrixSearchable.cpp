@@ -5,46 +5,83 @@
 #include "MyMatrixSearchable.h"
 #include <cmath>
 
+int MyMatrixSearchable::xFatherOfCurrent(State<Point> &current) {
+    int fatherX;
+    //if current has father, so we want to keep his coordinates
+    if (current.getFather() != NULL) {
+        fatherX = current.getFather()->getState().getX();
+    } else {
+        //if there is not father, so we initialize xFatherOfCurrent and yFatherOfCurrent with (-1,-1)
+        fatherX = -1;
+    }
+    return fatherX;
+}
+
+int MyMatrixSearchable::yFatherOfCurrent(State<Point> &current) {
+    int fatherY;
+    //if current has father, so we want to keep his coordinates
+    if (current.getFather() != NULL) {
+        fatherY = current.getFather()->getState().getY();
+    } else {
+        //if there is not father, so we initialize xFatherOfCurrent and yFatherOfCurrent with (-1,-1)
+        fatherY = -1;
+    }
+    return fatherY;
+}
+
+State<Point> *MyMatrixSearchable::setNeighbourToVector(int x, int y, Direction direction, State<Point> &current) {
+    Point *p1 = new Point(x, y);
+    //add this neighbour with price up to date, direction and his father - current
+    State<Point> *state1 = new State<Point>(p1, current.getCost() + matrixStatesByPoints[x][y]->getCost(),
+                                            &current, direction);
+    return state1;
+
+}
+
+
 vector<State<Point> *> MyMatrixSearchable::getPossibleNextStates(State<Point> &current) {
     vector<State<Point> *> result;
     int xCurrent = current.getState().getX();
     int yCurrent = current.getState().getY();
-    int fatherX, fatherY;
-    if (current.getFather() != NULL) {
-        fatherX = current.getFather()->getState().getX();
-        fatherY = current.getFather()->getState().getY();
-    } else {
-        fatherX = fatherY = -1;
-    }
+    //get coordinate of father
+    int fatherX = xFatherOfCurrent(current), fatherY = yFatherOfCurrent(current);
 
-    //if the index exist and the value isn't minus one, which is infinity
+    //if the index exist and the value isn't minus one, which is infinity, and if the index is not my father
     if (xCurrent < length - 1 && matrixStatesByPoints[xCurrent + 1][yCurrent]->getCost() >= 0 &&
         fatherX != xCurrent + 1) {
-        Point *p1 = new Point(xCurrent + 1, yCurrent);
-        result.push_back(
-                new State<Point>(p1, current.getCost() + matrixStatesByPoints[xCurrent + 1][yCurrent]->getCost(),
-                                 &current, DOWN));
+        result.push_back(setNeighbourToVector(xCurrent + 1, yCurrent, DOWN, current));
     }
+    //if the index exist and the value isn't minus one, which is infinity, and if the index is not my father
     if (yCurrent < width - 1 && matrixStatesByPoints[xCurrent][yCurrent + 1]->getCost() >= 0 &&
         fatherY != yCurrent + 1) {
-        Point *p2 = new Point(xCurrent, yCurrent + 1);
-        result.push_back(
-                new State<Point>(p2, current.getCost() + matrixStatesByPoints[xCurrent][yCurrent + 1]->getCost(),
-                                 &current, RIGHT));
+        result.push_back(setNeighbourToVector(xCurrent, yCurrent + 1, RIGHT, current));
     }
+    //if the index exist and the value isn't minus one, which is infinity
     if (xCurrent > 0 && matrixStatesByPoints[xCurrent - 1][yCurrent]->getCost() >= 0 && fatherX != xCurrent - 1) {
-        Point *p3 = new Point(xCurrent - 1, yCurrent);
-        result.push_back(
-                new State<Point>(p3, current.getCost() + matrixStatesByPoints[xCurrent - 1][yCurrent]->getCost(),
-                                 &current, UP));
+        result.push_back(setNeighbourToVector(xCurrent - 1, yCurrent, UP, current));
     }
+    //if the index exist and the value isn't minus one, which is infinity
     if (yCurrent > 0 && matrixStatesByPoints[xCurrent][yCurrent - 1]->getCost() >= 0 && fatherY != yCurrent - 1) {
-        Point *p4 = new Point(xCurrent, yCurrent - 1);
-        result.push_back(
-                new State<Point>(p4, current.getCost() + matrixStatesByPoints[xCurrent][yCurrent - 1]->getCost(),
-                                 &current, LEFT));
+        result.push_back(setNeighbourToVector(xCurrent, yCurrent - 1, LEFT, current));
     }
     return result;
+}
+
+State<Point> *
+MyMatrixSearchable::setNeighbourToVectorWithManhattan(int x, int y, Direction direction, State<Point> &current,
+                                                      State<Point> &goal, double manhattanDistanceCurrent) {
+    //manhattan distance from neighbour of current to goal for the heuristic distance
+    int manhattanDistance = abs(goal.getState().getX() - (x)) + abs(goal.getState().getY() - (y));
+    manhattanDistance = abs(manhattanDistance - manhattanDistanceCurrent);
+    Point *p1 = new Point(x, y);
+    State<Point> *state1 = new State<Point>(p1,
+                                            current.getCost() +
+                                            matrixStatesByPoints[x][y]->getCost(), &current,
+                                            direction);
+    //set the heuristic distance with cost of current, cost of neighbour and the manhattanDistance
+    state1->setHeuristicDistance(
+            current.getCost() + matrixStatesByPoints[x][y]->getCost() + manhattanDistance);
+    return state1;
 }
 
 vector<State<Point> *>
@@ -52,65 +89,33 @@ MyMatrixSearchable::getPossibleNextStatesWithManhattan(State<Point> &current, St
     vector<State<Point> *> result;
     int xCurrent = current.getState().getX();
     int yCurrent = current.getState().getY();
-    int fatherX, fatherY;
-    if (current.getFather() != NULL) {
-        fatherX = current.getFather()->getState().getX();
-        fatherY = current.getFather()->getState().getY();
-    } else {
-        fatherX = fatherY = -1;
-    }
+    //get coordinates of father
+    int fatherX = xFatherOfCurrent(current), fatherY = yFatherOfCurrent(current);
 
-
+    //manhattan distance from current to goal for the heuristic distance
     double manhattanDistanceCurrent = abs(goal.getState().getX() - xCurrent) + abs(goal.getState().getY() - yCurrent);
-    //if the index exist and the value isn't minus one, which is infinity
+
+    //if the index exist and the value isn't minus one, which is infinity, and if the index is not my father
     if (xCurrent < length - 1 && matrixStatesByPoints[xCurrent + 1][yCurrent]->getCost() >= 0 &&
         fatherX != xCurrent + 1) {
-        int manhattanDistance = abs(goal.getState().getX() - (xCurrent + 1)) + abs(goal.getState().getY() - (yCurrent));
-        manhattanDistance = abs(manhattanDistance - manhattanDistanceCurrent);
-        Point *p1 = new Point(xCurrent + 1, yCurrent);
-        State<Point> *state1 = new State<Point>(p1,
-                                                current.getCost() +
-                                                matrixStatesByPoints[xCurrent + 1][yCurrent]->getCost(), &current,
-                                                DOWN);
-        state1->setHeuristicDistance(
-                current.getCost() + matrixStatesByPoints[xCurrent + 1][yCurrent]->getCost() + manhattanDistance);
-        result.push_back(state1);
+        result.push_back(setNeighbourToVectorWithManhattan(xCurrent + 1, yCurrent, DOWN, current, goal,
+                                                           manhattanDistanceCurrent));
     }
+    //if the index exist and the value isn't minus one, which is infinity, and if the index is not my father
     if (yCurrent < width - 1 && matrixStatesByPoints[xCurrent][yCurrent + 1]->getCost() >= 0 &&
         fatherY != yCurrent + 1) {
-        int manhattanDistance = abs(goal.getState().getX() - (xCurrent)) + abs(goal.getState().getY() - (yCurrent + 1));
-        manhattanDistance = abs(manhattanDistance - manhattanDistanceCurrent);
-        Point *p2 = new Point(xCurrent, yCurrent + 1);
-        State<Point> *state2 = new State<Point>(p2,
-                                                current.getCost() +
-                                                matrixStatesByPoints[xCurrent][yCurrent + 1]->getCost(), &current,
-                                                RIGHT);
-        state2->setHeuristicDistance(
-                current.getCost() + matrixStatesByPoints[xCurrent][yCurrent + 1]->getCost() + manhattanDistance);
-        result.push_back(state2);
+        result.push_back(setNeighbourToVectorWithManhattan(xCurrent, yCurrent + 1, RIGHT, current, goal,
+                                                           manhattanDistanceCurrent));
     }
+    //if the index exist and the value isn't minus one, which is infinity
     if (xCurrent > 0 && matrixStatesByPoints[xCurrent - 1][yCurrent]->getCost() >= 0 && fatherX != xCurrent - 1) {
-        int manhattanDistance = abs(goal.getState().getX() - (xCurrent - 1)) + abs(goal.getState().getY() - (yCurrent));
-        manhattanDistance = abs(manhattanDistance - manhattanDistanceCurrent);
-        Point *p3 = new Point(xCurrent - 1, yCurrent);
-        State<Point> *state3 = new State<Point>(p3,
-                                                current.getCost() +
-                                                matrixStatesByPoints[xCurrent - 1][yCurrent]->getCost(), &current, UP);
-        state3->setHeuristicDistance(
-                current.getCost() + matrixStatesByPoints[xCurrent - 1][yCurrent]->getCost() + manhattanDistance);
-        result.push_back(state3);
+        result.push_back(
+                setNeighbourToVectorWithManhattan(xCurrent - 1, yCurrent, UP, current, goal, manhattanDistanceCurrent));
     }
+    //if the index exist and the value isn't minus one, which is infinity
     if (yCurrent > 0 && matrixStatesByPoints[xCurrent][yCurrent - 1]->getCost() >= 0 && fatherY != yCurrent - 1) {
-        int manhattanDistance = abs(goal.getState().getX() - (xCurrent)) + abs(goal.getState().getY() - (yCurrent - 1));
-        manhattanDistance = abs(manhattanDistance - manhattanDistanceCurrent);
-        Point *p4 = new Point(xCurrent, yCurrent - 1);
-        State<Point> *state4 = new State<Point>(p4,
-                                                current.getCost() +
-                                                matrixStatesByPoints[xCurrent][yCurrent - 1]->getCost(), &current,
-                                                LEFT);
-        state4->setHeuristicDistance(
-                current.getCost() + matrixStatesByPoints[xCurrent][yCurrent - 1]->getCost() + manhattanDistance);
-        result.push_back(state4);
+        result.push_back(setNeighbourToVectorWithManhattan(xCurrent, yCurrent - 1, LEFT, current, goal,
+                                                           manhattanDistanceCurrent));
     }
     return result;
 
@@ -118,7 +123,17 @@ MyMatrixSearchable::getPossibleNextStatesWithManhattan(State<Point> &current, St
 }
 
 MyMatrixSearchable::~MyMatrixSearchable() {
-
+    delete this->initializeStateByPoint;
+    delete this->goalStateByPoint;
+    unsigned int i, j;
+    //delete all State<Point>*
+    for (i = 0; i < this->matrixStatesByPoints.size(); ++i) {
+        for (j = 0; j < this->matrixStatesByPoints[i].size(); ++j) {
+            if (this->matrixStatesByPoints[i][j]) {
+                delete this->matrixStatesByPoints[i][j];
+            }
+        }
+    }
 }
 
 

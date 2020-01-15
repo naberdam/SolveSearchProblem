@@ -25,7 +25,7 @@ public:
     //return all of the possible place that we can go to them
     virtual vector<State<T> *> getPossibleNextStates(State<T> &current) = 0;
 
-    //return all of the possible states for the huristic
+    //return all of the possible states for the heuristic
     virtual vector<State<T> *> getPossibleNextStatesWithManhattan(State<T> &current, State<T> &goal) = 0;
 
     virtual ~Searchable() {}

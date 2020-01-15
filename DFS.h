@@ -11,19 +11,24 @@ template<class T>
 class DFS : public SearcherByStack<string, T> {
 public:
     virtual string search(Searchable<T> *searchable) {
+        //the first thing to do is to add the initializeState to openList
         this->addToOpenList(searchable->getInitializeState());
-        //as long there is a node in the queue
+        //till openList is empty
         while (this->getOpenListSize() > 0) {
+            //take the node from openList, so we will be able to work on him
             State<T> *nodeFromOpenListWeNeedToHandle = this->popOpenList();
+            //if we got to the goal, so we call to backTrace which is in BackTraceSearcher
             if (*nodeFromOpenListWeNeedToHandle == *searchable->getGoalState()) {
                 cout << nodeFromOpenListWeNeedToHandle->getCost() << endl;
                 string result = this->backTrace(nodeFromOpenListWeNeedToHandle, searchable);
                 this->deleteEverything();
                 return result;
             }
+            //if this node is not in closedList, so add it
             if (!this->doWeHaveThisNodeInClosedList(nodeFromOpenListWeNeedToHandle)) {
                 this->addToCloseList(nodeFromOpenListWeNeedToHandle);
             }
+            //get vector of all relevant neighbours
             vector<State<T> *> neighboursOfNodeFromOpenLost = searchable->getPossibleNextStates(
                     *nodeFromOpenListWeNeedToHandle);
             for (auto neighbour : neighboursOfNodeFromOpenLost) {
@@ -32,6 +37,7 @@ public:
                 }
             }
         }
+        //we do not have a path from initializeState to goalState so we will send an appropriate message
         this->deleteEverything();
         return this->noPathFromInitializeToGoal(searchable);
     }
