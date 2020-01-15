@@ -17,6 +17,17 @@
 #include "MatrixBuilder.h"
 #include "MyMatrixSearchable.h"
 
+#include <strings.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <sstream>
+#include <algorithm>
+#include "ClientHandler.h"
+#include "Solver.h"
+#include "CacheManager.h"
+#include "MatrixBuilder.h"
+#include "MyMatrixSearchable.h"
+
 template<class T>
 class MyClientHandler : public ClientHandler {
 private:
