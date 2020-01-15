@@ -118,8 +118,6 @@ MyMatrixSearchable::getPossibleNextStatesWithManhattan(State<Point> &current, St
                                                            manhattanDistanceCurrent));
     }
     return result;
-
-
 }
 
 MyMatrixSearchable::~MyMatrixSearchable() {
