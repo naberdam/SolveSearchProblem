@@ -18,13 +18,13 @@ using namespace std;
 template<class Problem, class Solution>
 class CacheManager {
 public:
-    // Bool methood that check if there is solution for this problem
+    // Bool method that check if there is solution for this problem
     virtual bool isSavedSolution(Problem problem) = 0;
 
-    // The methood will give to the user the solution
+    // The method will give to the user the solution
     virtual Solution getSolution(Problem problem) = 0;
 
-    // The methhod will save the solution for this problem
+    // The method will save the solution for this problem
     virtual void saveSolution(Problem problem, Solution solution) = 0;
 
     // The distractor

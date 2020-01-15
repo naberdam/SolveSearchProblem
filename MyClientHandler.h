@@ -5,8 +5,6 @@
 #ifndef UNTITLED2_MYCLIENTHANDLER_H
 #define UNTITLED2_MYCLIENTHANDLER_H
 #define BUFFER_SIZE 4000
-#define END_OF_COMMUNICATION "end"
-#define DELIMITER '\n'
 
 #include <strings.h>
 #include <sys/socket.h>
