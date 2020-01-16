@@ -32,7 +32,7 @@ public:
     }
     void handleClient(int socket) {
         char buffer[4900];
-        while (server_side::isConnecting) {
+        while (server_side::isSerialServerConnecting) {
             read(socket, buffer, 2024);
             string prob(buffer);
 
@@ -41,7 +41,7 @@ public:
             }
             string endStr = prob.substr(0,3);
             if (!strcmp(endStr.c_str(), "end")) {
-                server_side::isConnecting = false;
+                server_side::isSerialServerConnecting = false;
                 close(socket);
                 break;
             }

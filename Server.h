@@ -9,7 +9,9 @@
 #include "ClientHandler.h"
 
 namespace server_side {
-    static bool isConnecting = true;
+    static bool isSerialServerConnecting = true;
+    static bool isParallelServerConnecting = true;
+    static int countServersConnect = 0;
 
     template<class Problem, class Solution>
     class Server {

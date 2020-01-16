@@ -47,7 +47,7 @@ static void *start(int port, ClientHandler *clientHandler) {
     setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
 
     //as long as we are connect to server
-    while (server_side::isConnecting) {
+    while (server_side::isSerialServerConnecting) {
         listen(sockfd, 20000);
         struct sockaddr_in cli_addr;
         socklen_t clilen = sizeof(cli_addr);
@@ -57,11 +57,11 @@ static void *start(int port, ClientHandler *clientHandler) {
         if (newsockfd < 0) {
             if (errno == EWOULDBLOCK) {
                 cout << "timeout!" << endl;
-                server_side::isConnecting = false;
+                server_side::isSerialServerConnecting = false;
                 break;
             } else {
                 perror("other error");
-                server_side::isConnecting = false;
+                server_side::isSerialServerConnecting = false;
                 break;
             }
         }
@@ -75,13 +75,13 @@ template<class Problem, class Solution>
 class MySerialServer : public server_side::Server<Problem, Solution> {
 public:
     virtual void open(int port, ClientHandler *clientHandler) {
-        server_side::isConnecting = true;
+        server_side::isSerialServerConnecting = true;
         thread thr1(start<Problem, Solution>, port, clientHandler);
         thr1.join();
     }
 
     virtual void stop() {
-        server_side::isConnecting = false;
+        server_side::isSerialServerConnecting = false;
     }
 };
 
