@@ -80,7 +80,7 @@ public:
     void insertObjectToFile(string solution, string nameOfFileOfSolution) {
         //fstream file;
         // Open the stream and the file
-        ofstream file(nameOfFileOfSolution);
+        fstream file(nameOfFileOfSolution);
         file.open(nameOfFileOfSolution, ios::out | ios::binary);
         // If there is a problem with the file
         if (!file) {

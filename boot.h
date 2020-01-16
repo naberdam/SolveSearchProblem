@@ -29,10 +29,10 @@ namespace boot {
             auto solver = new SearcherSolver<Point>();
             auto *c = new MyClientHandler<Point>(cm, solver);
             auto s = MySerialServer<string,string>();
-            /*auto s2 = MyParallelServer<string,string>();*/
+            auto s2 = MyParallelServer<string,string>();
             //open the server and start the algorithm
-            /*s2.open(atoi(argv[1]), c);*/
-            s.open(atoi(argv[1]), c);
+            s2.open(atoi(argv[1]), c);
+            /*s.open(atoi(argv[1]), c);*/
         }
     };
 };
