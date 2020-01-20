@@ -16,7 +16,6 @@
 #include <string.h>
 #include <list>
 #include <iostream>
-#include <string.h>
 #include <functional>
 
 
@@ -33,13 +32,14 @@ public:
 
     // Bool methood that check if there is solution for this problem
     virtual bool isSavedSolution(Problem problem) {
-        cout<<"Im in isSavedSolution"<<endl;
+        // Use a function hash for the name of the file
         hash<string> hasher;
         std::size_t hash = hasher(problem);
         string nameFile = to_string(hash);
         // Open the stream and the file
         ifstream file;
         file.open(nameFile);
+        // check if the file exist
         if (file) {
             return true;
         }
@@ -50,6 +50,7 @@ public:
     virtual Solution getSolution(Problem problem) {
         if (isSavedSolution(problem)) {
             hash<string> hasher;
+            // Get the hash of the problem
             std::size_t hash = hasher(problem);
             string nameFile = to_string(hash);
             string solution;
@@ -78,7 +79,6 @@ public:
 
     // The help methhod  for insert the solution to the file
     void insertObjectToFile(string solution, string nameOfFileOfSolution) {
-        //fstream file;
         // Open the stream and the file
         fstream file(nameOfFileOfSolution);
         file.open(nameOfFileOfSolution, ios::out | ios::binary);

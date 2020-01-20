@@ -4,7 +4,6 @@
 
 #ifndef UNTITELD2_BOOT_H
 #define UNTITELD2_BOOT_H
-
 #include "FileCacheManager.h"
 #include "MyTestClientHandler.h"
 #include "MyClientHandler.h"
@@ -36,5 +35,4 @@ namespace boot {
         }
     };
 };
-
 #endif //UNTITELD2_BOOT_H

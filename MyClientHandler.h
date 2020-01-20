@@ -17,17 +17,6 @@
 #include "MatrixBuilder.h"
 #include "MyMatrixSearchable.h"
 
-#include <strings.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <sstream>
-#include <algorithm>
-#include "ClientHandler.h"
-#include "Solver.h"
-#include "CacheManager.h"
-#include "MatrixBuilder.h"
-#include "MyMatrixSearchable.h"
-
 template<class T>
 class MyClientHandler : public ClientHandler {
 private:
@@ -61,6 +50,7 @@ public:
             ssize_t numBytesRead = recv(socket, buffer, BUFFER_SIZE, 0);
             //if we got something from server
             if (numBytesRead > 0) {
+                cout << buffer << endl;
                 unsigned int i;
                 for (i = 0; i < numBytesRead; i++) {
                     char c = buffer[i];
@@ -99,11 +89,16 @@ public:
         if (this->cacheManager->isSavedSolution(problem)) {
             cout << "There is a solution" << endl;
             solution = this->cacheManager->getSolution(problem);
+            cout << solution << endl;
         } else {
             //there is no solution in cacheManager, so we need to solve it
             cout << "we dont have solution, but we will find for you" << endl;
             solution = this->solver->solve(matrixSearchable);
             this->cacheManager->saveSolution(problem, solution);
+            cout << solution << endl;
+        }
+        if (buffer[0] == '\0') {
+            cout << "prob" << endl;
         }
         //write the solution to server
         write(socket, solution.c_str(), solution.length());
