@@ -17,22 +17,28 @@
 using namespace std;
 
 namespace boot {
-    template <class Problem, class Solution>
-    class Main {
-    public:
-        Main() {}
-        int main1(int argc, char** argv) {
-            auto cm = new FileCacheManager<Problem, Solution>();
-            /*auto solver = new StringReverser<string, string>();
-            auto *c = new MyTestClientHandler<string, string>(cm, solver);*/
-            auto solver = new SearcherSolver<Point>();
-            auto *c = new MyClientHandler<Point>(cm, solver);
-            auto s = MySerialServer<string,string>();
-            auto s2 = MyParallelServer<string,string>();
-            //open the server and start the algorithm
-            s2.open(atoi(argv[1]), c);
-            /*s.open(atoi(argv[1]), c);*/
-        }
-    };
+template<class Problem, class Solution>
+class Main {
+ public:
+  Main() {}
+  int main1(int argc, char **argv) {
+    auto cm = new FileCacheManager<Problem, Solution>();
+    /*auto solver = new StringReverser<string, string>();
+    auto *c = new MyTestClientHandler<string, string>(cm, solver);*/
+    auto solver = new SearcherSolver<Point>();
+    auto *c = new MyClientHandler<Point>(cm, solver);
+    auto s = MySerialServer<string, string>();
+    auto s2 = MyParallelServer<string, string>();
+    int port;
+    if (argc < 2) {
+      port = 5600;
+    } else {
+      port = atoi(argv[1]);
+    }
+    //open the server and start the algorithm
+    s2.open(port, c);
+    /*s.open(atoi(argv[1]), c);*/
+  }
+};
 };
 #endif //UNTITELD2_BOOT_H

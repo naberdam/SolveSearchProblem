@@ -26,9 +26,7 @@ template<typename Problem, typename Solution>
 class FileCacheManager : public CacheManager<Problem, Solution> {
 public:
     // The constructor
-    FileCacheManager() {
-
-    }
+    FileCacheManager() {}
 
     // Bool methood that check if there is solution for this problem
     virtual bool isSavedSolution(Problem problem) {

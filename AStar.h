@@ -22,7 +22,7 @@ public:
             this->addToCloseList(nodeFromOpenListWeNeedToHandle);
             //if we got to the goal
             if (*nodeFromOpenListWeNeedToHandle == *searchable->getGoalState()) {
-                cout << nodeFromOpenListWeNeedToHandle->getCost() << endl;
+                cout << "how much cost it takes AStar: " << nodeFromOpenListWeNeedToHandle->getCost() << endl;
                 string result = this->backTrace(nodeFromOpenListWeNeedToHandle, searchable);
                 this->deleteEverything();
                 return result;

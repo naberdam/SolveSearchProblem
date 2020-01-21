@@ -20,19 +20,36 @@ using namespace std;
 
 template<typename T>
 class SearcherSolver : public Solver<Searchable<T> *, string> {
-public:
+ public:
 
-    virtual string solve(Searchable<T> *problem) {
-        Searcher<string, T> *bestFS = new BestFirstSearch<T>();
-        //get solution of problem
-        string result = bestFS->search(problem);
-        cout << bestFS->getNumberOfNodesEvaluated() << endl;
-        delete bestFS;
-        return result;
-    }
+  virtual string solve(Searchable<T> *problem) {
+    Searcher<string, T> *bestFS = new BestFirstSearch<T>();
+    //get solution of problem
+    string result = bestFS->search(problem);
+    cout << "how much kodkodim BestFS: " << bestFS->getNumberOfNodesEvaluated() << endl;
+    delete bestFS;
 
-    virtual ~SearcherSolver() {}
+    Searcher<string, T> *bestFS1 = new AStar<T>();
+    //get solution of problem
+    string result1 = bestFS1->search(problem);
+    cout << "how much kodkodim AStar: " << bestFS1->getNumberOfNodesEvaluated() << endl;
+    delete bestFS1;
+
+    Searcher<string, T> *bestFS2 = new BFS<T>();
+    //get solution of problem
+    string result2 = bestFS2->search(problem);
+    cout << "how much kodkodim BFS: " << bestFS2->getNumberOfNodesEvaluated() << endl;
+    delete bestFS2;
+
+    Searcher<string, T> *bestFS3 = new DFS<T>();
+    //get solution of problem
+    string result3 = bestFS3->search(problem);
+    cout << "how much kodkodim DFS: " << bestFS3->getNumberOfNodesEvaluated() << endl;
+    delete bestFS3;
+    return result;
+  }
+
+  virtual ~SearcherSolver() {}
 };
-
 
 #endif //UNTITLED2_SEARCHERSOLVEROA_H

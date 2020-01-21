@@ -19,134 +19,134 @@
 
 template<class T>
 class MyClientHandler : public ClientHandler {
-private:
-    Solver<Searchable<T> *, string> *solver;
-    CacheManager<string, string> *cacheManager;
+ private:
+  Solver<Searchable<T> *, string> *solver;
+  CacheManager<string, string> *cacheManager;
 
-public:
+ public:
 
-    MyClientHandler(CacheManager<string, string> *cacheManager, Solver<Searchable<T> *, string> *solver) : cacheManager(
-            cacheManager), solver(solver) {}
+  MyClientHandler(CacheManager<string, string> *cacheManager, Solver<Searchable<T> *, string> *solver) : cacheManager(
+      cacheManager), solver(solver) {}
 
-    virtual void handleClient(int socket) {
-        //problem will be the representation of the matrix in FileCacheManager
-        string problem;
-        //the current line which we will put in vector that will send to MatrixBuilder
-        string currentLine;
-        //solution of the problem
-        string solution;
-        char buffer[BUFFER_SIZE] = {0};
-        //vector of all lines that we will receive from server
-        vector<vector<double>> detailsOnMatrix;
-        //boolean that represents if we already got "end" from server
-        bool endOfMatrix = false;
-        //as long as current line is not "end"
-        while (!endOfMatrix) {
-            unsigned int k = 0;
-            //flush the buffer
-            for (; k < BUFFER_SIZE; ++k) {
-                buffer[k] = '\0';
+  virtual void handleClient(int socket) {
+    //problem will be the representation of the matrix in FileCacheManager
+    string problem;
+    //the current line which we will put in vector that will send to MatrixBuilder
+    string currentLine;
+    //solution of the problem
+    string solution;
+    char buffer[BUFFER_SIZE] = {0};
+    //vector of all lines that we will receive from server
+    vector<vector<double>> detailsOnMatrix;
+    //boolean that represents if we already got "end" from server
+    bool endOfMatrix = false;
+    //as long as current line is not "end"
+    while (!endOfMatrix) {
+      unsigned int k = 0;
+      //flush the buffer
+      for (; k < BUFFER_SIZE; ++k) {
+        buffer[k] = '\0';
+      }
+      ssize_t numBytesRead = recv(socket, buffer, BUFFER_SIZE, 0);
+      //if we got something from server
+      if (numBytesRead > 0) {
+        /*cout << buffer << endl;*/
+        unsigned int i;
+        for (i = 0; i < numBytesRead; i++) {
+          char c = buffer[i];
+          //end of the line
+          if (c == '\n') {
+            if (currentLine.length() > 0) {
+              if (currentLine == "end") {
+                endOfMatrix = true;
+                break;
+              }
+              //add this line, which is currentLine, to vector of matrix without spaces and comas
+              detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(currentLine));
+              problem += currentLine + "\n";
+              currentLine.clear();
             }
-            ssize_t numBytesRead = recv(socket, buffer, BUFFER_SIZE, 0);
-            //if we got something from server
-            if (numBytesRead > 0) {
-                cout << buffer << endl;
-                unsigned int i;
-                for (i = 0; i < numBytesRead; i++) {
-                    char c = buffer[i];
-                    //end of the line
-                    if (c == '\n') {
-                        if (currentLine.length() > 0) {
-                            if (currentLine == "end") {
-                                endOfMatrix = true;
-                                break;
-                            }
-                            //add this line, which is currentLine, to vector of matrix without spaces and comas
-                            detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(currentLine));
-                            problem += currentLine + "\n";
-                            currentLine.clear();
-                        }
-                    } else {
-                        //part of the line
-                        currentLine += c;
-                    }
-                }
-                /*string check = buffer;
-                cout << buffer << endl;
-                string endStr = check.substr(0, 3);
-                if (!strcmp(endStr.c_str(), "end")) {
-                    break;
-                }
-                check += "\n";
-                detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(check));
-                problem += check;*/
-            }
+          } else {
+            //part of the line
+            currentLine += c;
+          }
         }
-        cout << problem << endl;
-        //create the matrix using detailsOnMatrix which contains all the lines we got from server (besides "end")
-        MyMatrixSearchable *matrixSearchable = MatrixBuilder::createMatrix(detailsOnMatrix, problem);
-        //if we have solution for this problem
-        if (this->cacheManager->isSavedSolution(problem)) {
-            cout << "There is a solution" << endl;
-            solution = this->cacheManager->getSolution(problem);
-            cout << solution << endl;
-        } else {
-            //there is no solution in cacheManager, so we need to solve it
-            cout << "we dont have solution, but we will find for you" << endl;
-            solution = this->solver->solve(matrixSearchable);
-            this->cacheManager->saveSolution(problem, solution);
-            cout << solution << endl;
+        /*string check = buffer;
+        cout << buffer << endl;
+        string endStr = check.substr(0, 3);
+        if (!strcmp(endStr.c_str(), "end")) {
+            break;
         }
-        if (buffer[0] == '\0') {
-            cout << "prob" << endl;
-        }
-        //write the solution to server
-        write(socket, solution.c_str(), solution.length());
+        check += "\n";
+        detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(check));
+        problem += check;*/
+      }
     }
+    /*cout << problem << endl;*/
+    //create the matrix using detailsOnMatrix which contains all the lines we got from server (besides "end")
+    MyMatrixSearchable *matrixSearchable = MatrixBuilder::createMatrix(detailsOnMatrix, problem);
+    //if we have solution for this problem
+    if (this->cacheManager->isSavedSolution(problem)) {
+      cout << "There is a solution" << endl;
+      solution = this->cacheManager->getSolution(problem);
 
-    string deleteSpacesFromLine(string line) {
-        unsigned int i = 0;
-        string stringWithoutSpaces;
-        for (; i < line.size(); ++i) {
-            //delete space from the line
-            if (line[i] == ' ') {
-                continue;
-            }
-            stringWithoutSpaces += line[i];
-        }
-        //returns line without spaces
-        return stringWithoutSpaces;
+    } else {
+      //there is no solution in cacheManager, so we need to solve it
+      cout << "we dont have solution, but we will find for you" << endl;
+      solution = this->solver->solve(matrixSearchable);
+      this->cacheManager->saveSolution(problem, solution);
+      /*cout << solution << endl;*/
     }
+    cout << solution << endl;
+    if (buffer[0] == '\0') {
+      cout << "prob" << endl;
+    }
+    //write the solution to server
+    write(socket, solution.c_str(), solution.length());
+  }
 
-    vector<double> addLineAfterParsingByComaToVector(const string line) {
-        string lineTemp = deleteSpacesFromLine(line);
-        string delimiterOfAllText = ",";
-        size_t posOfAllText = 0;
-        string tokenOfAllText;
-        vector<double> cellInVectorOfAllMatrix;
-        unsigned int i = 0;
-        //as long as there is ',' in lineTemp
-        while ((posOfAllText = lineTemp.find(delimiterOfAllText)) != string::npos) {
-            //take the value till the ','
-            tokenOfAllText = lineTemp.substr(0, posOfAllText);
-            //erase this value from lineTemp
-            lineTemp.erase(0, posOfAllText + delimiterOfAllText.length());
-            //add this value, which is tokenOfAllText, to the vector
-            cellInVectorOfAllMatrix.push_back(stod(tokenOfAllText));
-        }
-        //parsing the last value in lineTemp
-        posOfAllText = lineTemp.find('\n');
-        tokenOfAllText = lineTemp.substr(0, posOfAllText);
-        //add it to vector
-        cellInVectorOfAllMatrix.push_back(stod(tokenOfAllText));
-        return cellInVectorOfAllMatrix;
+  string deleteSpacesFromLine(string line) {
+    unsigned int i = 0;
+    string stringWithoutSpaces;
+    for (; i < line.size(); ++i) {
+      //delete space from the line
+      if (line[i] == ' ') {
+        continue;
+      }
+      stringWithoutSpaces += line[i];
     }
+    //returns line without spaces
+    return stringWithoutSpaces;
+  }
 
-    ~MyClientHandler() {
-        delete cacheManager;
-        delete solver;
+  vector<double> addLineAfterParsingByComaToVector(const string line) {
+    string lineTemp = deleteSpacesFromLine(line);
+    string delimiterOfAllText = ",";
+    size_t posOfAllText = 0;
+    string tokenOfAllText;
+    vector<double> cellInVectorOfAllMatrix;
+    unsigned int i = 0;
+    //as long as there is ',' in lineTemp
+    while ((posOfAllText = lineTemp.find(delimiterOfAllText)) != string::npos) {
+      //take the value till the ','
+      tokenOfAllText = lineTemp.substr(0, posOfAllText);
+      //erase this value from lineTemp
+      lineTemp.erase(0, posOfAllText + delimiterOfAllText.length());
+      //add this value, which is tokenOfAllText, to the vector
+      cellInVectorOfAllMatrix.push_back(stod(tokenOfAllText));
     }
+    //parsing the last value in lineTemp
+    posOfAllText = lineTemp.find('\n');
+    tokenOfAllText = lineTemp.substr(0, posOfAllText);
+    //add it to vector
+    cellInVectorOfAllMatrix.push_back(stod(tokenOfAllText));
+    return cellInVectorOfAllMatrix;
+  }
+
+  ~MyClientHandler() {
+    delete cacheManager;
+    delete solver;
+  }
 };
-
 
 #endif //UNTITLED2_MYCLIENTHANDLER_H
