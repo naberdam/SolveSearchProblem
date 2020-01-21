@@ -2,15 +2,21 @@
 
 ### Introduction
 
-In this assignment,  we are connecting with the server that give us problems and wait for solution.
+In this assignment, we are connecting with the server that give us problems and wait for solution.
 
 There is a 10 clients that we handle all of them in parallel. We built the program in generic type. 
 
-The program take care of all the problems that implement Searchable. But we focused at Matrix that it is a kind of Searchable. 
+The program take care of all the problems that implement Searchable. 
 
-The client give us matrix with start point and goal point. We would like to give him the shortest route.  
+But we focused at Matrix that it is a kind of Searchable. 
 
-The solutions will be saved at files. The class FileCacheManager handle this part. 
+The client give us matrix with start point and goal point. 
+
+We would like to give him the shortest route.  
+
+The solutions will be saved at files. 
+
+The class FileCacheManager handle this part. 
 
 First, we have a class that connected to the server with the port the we get at argument. 
 
@@ -29,9 +35,12 @@ The name of the file will be the hash code of the string of the matrix.
 Second, we have 4 algorithms that we implement in our program. BFS, DFS, BestFs and Astar. 
 
 The fastest algorithm will be used to help to the client. 
+
 We make an experiment to determine which algorithm is the best. The data was 10 matrix.
 
+
 ### How to run the code:
+
 
 Take all the files and put them at the same file. After that, open in the terminal the location of the folder.
 
