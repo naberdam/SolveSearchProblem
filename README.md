@@ -1,6 +1,7 @@
 # ex4
 
 ### Introduction
+
 In this assignment,  we are connecting with the server that give us problems and wait for solution.
 
 There is a 10 clients that we handle all of them in parallel. We built the program in generic type. 
@@ -30,7 +31,7 @@ Second, we have 4 algorithms that we implement in our program. BFS, DFS, BestFs 
 The fastest algorithm will be used to help to the client. 
 We make an experiment to determine which algorithm is the best. The data was 10 matrix.
 
-###How to run the code:
+### How to run the code:
 
 Take all the files and put them at the same file. After that, open in the terminal the location of the folder.
 
