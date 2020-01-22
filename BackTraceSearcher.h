@@ -17,7 +17,7 @@ class BackTraceSearcher : public Searcher<Solution, T> {
   //function that add the cost of this item to the result that will send to server
   string setCostInResult(State<T> *item) {
     string result;
-    result += to_string(item->getCost());
+    result += to_string((int) item->getCost());
     result += ")";
     return result;
   }

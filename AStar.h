@@ -23,7 +23,6 @@ class AStar : public SearcherByPriorityQueueByComparator<string, T, ComparatorBy
       this->addToCloseList(nodeFromOpenListWeNeedToHandle);
       //if we got to the goal
       if (*nodeFromOpenListWeNeedToHandle == *searchable->getGoalState()) {
-        cout << "how much cost: " << nodeFromOpenListWeNeedToHandle->getCost() << endl;
         string result = this->backTrace(nodeFromOpenListWeNeedToHandle, searchable);
         this->deleteEverything();
         return result;
