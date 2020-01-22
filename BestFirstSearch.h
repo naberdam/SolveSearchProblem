@@ -29,7 +29,7 @@ class BestFirstSearch : public SearcherByPriorityQueueByComparator<string, T, Co
       this->addToCloseList(nodeFromOpenListWeNeedToHandle);
       //if we got to the goal, so we call to backTrace which is in BackTraceSearcher
       if (*nodeFromOpenListWeNeedToHandle == *searchable->getGoalState()) {
-        cout << "how much cost it takes BestFS: " << nodeFromOpenListWeNeedToHandle->getCost() << endl;
+        cout << "how many nodes: " << nodeFromOpenListWeNeedToHandle->getCost() << endl;
         string result = this->backTrace(nodeFromOpenListWeNeedToHandle, searchable);
         this->deleteEverything();
         return result;
@@ -39,7 +39,7 @@ class BestFirstSearch : public SearcherByPriorityQueueByComparator<string, T, Co
           *nodeFromOpenListWeNeedToHandle);
       for (auto neighbour : neighboursOfNodeFromOpenLost) {
         if (!this->doWeHaveThisNodeInClosedList(neighbour) && !this->doWeHaveThisNodeInOpenList(neighbour)) {
-          /*neighbour->setFather(nodeFromOpenListWeNeedToHandle);*/
+          neighbour->setFather(nodeFromOpenListWeNeedToHandle);
           this->addToOpenList(neighbour);
         } else if (this->doWeHaveThisNodeInClosedList(neighbour)) {
           continue;

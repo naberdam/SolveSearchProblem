@@ -41,7 +41,7 @@ static void *start(int port, ClientHandler *clientHandler) {
     perror("Failed to bind server connection.");
     exit(1);
   }
-  cout<<"server is listening" << endl;
+  cout << "Server is listening..." << endl;
   listen(sockfd, 20000);
 
   //as long as we are connect to server
@@ -69,6 +69,7 @@ static void *start(int port, ClientHandler *clientHandler) {
     //handle client we accept and solve his problem
     clientHandler->handleClient(newsockfd);
   }
+  return reinterpret_cast<void *>(1);
 }
 
 template<class Problem, class Solution>

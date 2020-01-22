@@ -20,7 +20,6 @@ class BFS : public SearcherByQueue<string, T> {
       State<T> *nodeFromOpenListWeNeedToHandle = this->popOpenList();
       //if we got to the goal, so we call to backTrace which is in BackTraceSearcher
       if (*nodeFromOpenListWeNeedToHandle == *searchable->getGoalState()) {
-        cout << "how much cost it takes BFS: " << nodeFromOpenListWeNeedToHandle->getCost() << endl;
         string result = this->backTrace(nodeFromOpenListWeNeedToHandle, searchable);
         this->deleteEverything();
         return result;

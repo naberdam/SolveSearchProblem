@@ -37,8 +37,10 @@ class Main {
     }
     //open the server and start the algorithm
     s2.open(port, c);
-    /*s.open(atoi(argv[1]), c);*/
+    /*s.open(port, c);*/
+    return 0;
   }
 };
-};
+
+}
 #endif //UNTITELD2_BOOT_H

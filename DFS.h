@@ -19,7 +19,7 @@ class DFS : public SearcherByStack<string, T> {
       State<T> *nodeFromOpenListWeNeedToHandle = this->popOpenList();
       //if we got to the goal, so we call to backTrace which is in BackTraceSearcher
       if (*nodeFromOpenListWeNeedToHandle == *searchable->getGoalState()) {
-        cout << "how much cost it takes DFS: " << nodeFromOpenListWeNeedToHandle->getCost() << endl;
+        cout << "how much cost: " << nodeFromOpenListWeNeedToHandle->getCost() << endl;
         string result = this->backTrace(nodeFromOpenListWeNeedToHandle, searchable);
         this->deleteEverything();
         return result;
@@ -27,14 +27,16 @@ class DFS : public SearcherByStack<string, T> {
       //if this node is not in closedList, so add it
       if (!this->doWeHaveThisNodeInClosedList(nodeFromOpenListWeNeedToHandle)) {
         this->addToCloseList(nodeFromOpenListWeNeedToHandle);
-      }
-      //get vector of all relevant neighbours
-      vector<State<T> *> neighboursOfNodeFromOpenLost = searchable->getPossibleNextStates(
-          *nodeFromOpenListWeNeedToHandle);
-      for (auto neighbour : neighboursOfNodeFromOpenLost) {
-        if (!this->doWeHaveThisNodeInClosedList(neighbour) && !this->doWeHaveThisNodeInOpenList(neighbour)) {
-          this->addToOpenList(neighbour);
+        //get vector of all relevant neighbours
+        vector<State<T> *> neighboursOfNodeFromOpenLost = searchable->getPossibleNextStates(
+            *nodeFromOpenListWeNeedToHandle);
+        for (auto neighbour : neighboursOfNodeFromOpenLost) {
+          if (!this->doWeHaveThisNodeInClosedList(neighbour) && !this->doWeHaveThisNodeInOpenList(neighbour)) {
+            this->addToOpenList(neighbour);
+          }
         }
+      } else {
+        delete nodeFromOpenListWeNeedToHandle;
       }
     }
     //we do not have a path from initializeState to goalState so we will send an appropriate message
@@ -42,9 +44,7 @@ class DFS : public SearcherByStack<string, T> {
     return this->noPathFromInitializeToGoal(searchable);
   }
 
-  virtual ~DFS() {
-
-  }
+  virtual ~DFS() {}
 };
 
 #endif //UNTITLED2_DFS_H

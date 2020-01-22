@@ -20,13 +20,13 @@
 template<class T>
 class MyClientHandler : public ClientHandler {
  private:
-  Solver<Searchable<T> *, string> *solver;
   CacheManager<string, string> *cacheManager;
+  Solver<Searchable<T> *, string> *solver;
 
  public:
 
-  MyClientHandler(CacheManager<string, string> *cacheManager, Solver<Searchable<T> *, string> *solver) : cacheManager(
-      cacheManager), solver(solver) {}
+  MyClientHandler(CacheManager<string, string> *cacheManager1, Solver<Searchable<T> *, string> *solver1) : cacheManager(
+      cacheManager1), solver(solver1) {}
 
   virtual void handleClient(int socket) {
     //problem will be the representation of the matrix in FileCacheManager
@@ -50,7 +50,6 @@ class MyClientHandler : public ClientHandler {
       ssize_t numBytesRead = recv(socket, buffer, BUFFER_SIZE, 0);
       //if we got something from server
       if (numBytesRead > 0) {
-        /*cout << buffer << endl;*/
         unsigned int i;
         for (i = 0; i < numBytesRead; i++) {
           char c = buffer[i];
@@ -71,18 +70,8 @@ class MyClientHandler : public ClientHandler {
             currentLine += c;
           }
         }
-        /*string check = buffer;
-        cout << buffer << endl;
-        string endStr = check.substr(0, 3);
-        if (!strcmp(endStr.c_str(), "end")) {
-            break;
-        }
-        check += "\n";
-        detailsOnMatrix.push_back(addLineAfterParsingByComaToVector(check));
-        problem += check;*/
       }
     }
-    /*cout << problem << endl;*/
     //create the matrix using detailsOnMatrix which contains all the lines we got from server (besides "end")
     MyMatrixSearchable *matrixSearchable = MatrixBuilder::createMatrix(detailsOnMatrix, problem);
     //if we have solution for this problem
@@ -106,9 +95,9 @@ class MyClientHandler : public ClientHandler {
   }
 
   string deleteSpacesFromLine(string line) {
-    unsigned int i = 0;
+    unsigned int i;
     string stringWithoutSpaces;
-    for (; i < line.size(); ++i) {
+    for (i = 0; i < line.size(); ++i) {
       //delete space from the line
       if (line[i] == ' ') {
         continue;
@@ -125,7 +114,6 @@ class MyClientHandler : public ClientHandler {
     size_t posOfAllText = 0;
     string tokenOfAllText;
     vector<double> cellInVectorOfAllMatrix;
-    unsigned int i = 0;
     //as long as there is ',' in lineTemp
     while ((posOfAllText = lineTemp.find(delimiterOfAllText)) != string::npos) {
       //take the value till the ','

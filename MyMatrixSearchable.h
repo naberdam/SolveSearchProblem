@@ -10,55 +10,50 @@
 #include "Searchable.h"
 #include "Point.h"
 
-
 class MyMatrixSearchable : public Searchable<Point> {
-    unsigned long length;
-    unsigned long width;
-    State<Point> *initializeStateByPoint;
-    State<Point> *goalStateByPoint;
-    vector<vector<State<Point> *>> matrixStatesByPoints;
-    string representationMatrixInString;
+  vector<vector<State<Point> *>> matrixStatesByPoints;
+  State<Point> *initializeStateByPoint;
+  State<Point> *goalStateByPoint;
+  string representationMatrixInString;
+  long long length;
+  long long width;
 
-public:
+ public:
 
-    MyMatrixSearchable(vector<vector<State<Point> *>> &matrix, State<Point> *&initState,
-                       State<Point> *&goalState, string &matrixInString) : matrixStatesByPoints(matrix),
-                                                                           initializeStateByPoint(initState),
-                                                                           goalStateByPoint(goalState),
-                                                                           representationMatrixInString(std::move(
-                                                                                   matrixInString)) {
-        width = matrixStatesByPoints[0].size();
-        length = matrixStatesByPoints.size();
-    }
+  MyMatrixSearchable(vector<vector<State<Point> *>> &matrix, State<Point> *&initState,
+                     State<Point> *&goalState, string &matrixInString) : matrixStatesByPoints(matrix),
+                                                                         initializeStateByPoint(initState),
+                                                                         goalStateByPoint(goalState),
+                                                                         representationMatrixInString(std::move(
+                                                                             matrixInString)) {
+    width = matrixStatesByPoints[0].size();
+    length = matrixStatesByPoints.size();
+  }
 
-    virtual int xFatherOfCurrent(State<Point> &current);
+  virtual int xFatherOfCurrent(State<Point> &current);
 
-    virtual int yFatherOfCurrent(State<Point> &current);
+  virtual int yFatherOfCurrent(State<Point> &current);
 
-    virtual ~MyMatrixSearchable();
+  virtual ~MyMatrixSearchable();
 
-    virtual State<Point> *getInitializeState() {
-        return initializeStateByPoint;
-    }
+  virtual State<Point> *getInitializeState() {
+    return initializeStateByPoint;
+  }
 
-    virtual State<Point> *getGoalState() {
-        return goalStateByPoint;
-    }
+  virtual State<Point> *getGoalState() {
+    return goalStateByPoint;
+  }
 
-    virtual vector<State<Point> *> getPossibleNextStatesWithManhattan(State<Point> &current, State<Point> &goal);
+  virtual vector<State<Point> *> getPossibleNextStates(State<Point> &current);
 
-    virtual vector<State<Point> *> getPossibleNextStates(State<Point> &current);
+  virtual State<Point> *setNeighbourToVector(int x, int y, Direction direction, State<Point> &current);
 
-    virtual State<Point> *setNeighbourToVector(int x, int y, Direction direction, State<Point> &current);
+  friend ostream &operator<<(ostream &out, const MyMatrixSearchable *&c) {
+    out << c->representationMatrixInString;
+    return out;
+  }
 
-    virtual State<Point> *setNeighbourToVectorWithManhattan(int x, int y, Direction direction, State<Point> &current,
-                                                            State<Point> &goal, double manhattanDistanceCurrent);
-
-    friend ostream &operator<<(ostream &out, const MyMatrixSearchable *&c) {
-        out << c->representationMatrixInString;
-        return out;
-    }
+  virtual double setHeuristicForNode(State<Point> &nodeToChange, State<Point> &goal);
 };
-
 
 #endif //UNTITLED2_MYMATRIXSEARCHABLE_H

@@ -4,12 +4,12 @@
 
 #ifndef SOLIDPROJECT_EX2_SOLVER_H
 #define SOLIDPROJECT_EX2_SOLVER_H
-template <class Problem, class Solution>
+template<class Problem, class Solution>
 class Solver {
-public:
-    //a function that solve a generic problem and returns generic solution
-    virtual Solution solve (Problem problem) = 0 ;
+ public:
+  //a function that solve a generic problem and returns generic solution
+  virtual Solution solve(Problem problem) = 0;
 
-    virtual ~Solver() {}
+  virtual ~Solver() {}
 };
 #endif //SOLIDPROJECT_EX2_SOLVER_H

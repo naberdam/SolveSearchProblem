@@ -23,29 +23,11 @@ class SearcherSolver : public Solver<Searchable<T> *, string> {
  public:
 
   virtual string solve(Searchable<T> *problem) {
-    Searcher<string, T> *bestFS = new BestFirstSearch<T>();
+    Searcher<string, T> *bestFS = new AStar<T>();
     //get solution of problem
     string result = bestFS->search(problem);
-    cout << "how much kodkodim BestFS: " << bestFS->getNumberOfNodesEvaluated() << endl;
+    cout << "how many nodes: " << bestFS->getNumberOfNodesEvaluated() << endl;
     delete bestFS;
-
-    Searcher<string, T> *bestFS1 = new AStar<T>();
-    //get solution of problem
-    string result1 = bestFS1->search(problem);
-    cout << "how much kodkodim AStar: " << bestFS1->getNumberOfNodesEvaluated() << endl;
-    delete bestFS1;
-
-    Searcher<string, T> *bestFS2 = new BFS<T>();
-    //get solution of problem
-    string result2 = bestFS2->search(problem);
-    cout << "how much kodkodim BFS: " << bestFS2->getNumberOfNodesEvaluated() << endl;
-    delete bestFS2;
-
-    Searcher<string, T> *bestFS3 = new DFS<T>();
-    //get solution of problem
-    string result3 = bestFS3->search(problem);
-    cout << "how much kodkodim DFS: " << bestFS3->getNumberOfNodesEvaluated() << endl;
-    delete bestFS3;
     return result;
   }
 
