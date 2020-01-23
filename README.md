@@ -52,7 +52,7 @@ Then, run the code.
 
 After that, run the port:	
 
-./a.out –number port-
+./a.out –number port- (the default port is 5600)
 
 You can run a python script that will send the data. 
 
