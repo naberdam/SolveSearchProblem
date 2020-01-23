@@ -19,7 +19,6 @@ class DFS : public SearcherByStack<string, T> {
       State<T> *nodeFromOpenListWeNeedToHandle = this->popOpenList();
       //if we got to the goal, so we call to backTrace which is in BackTraceSearcher
       if (*nodeFromOpenListWeNeedToHandle == *searchable->getGoalState()) {
-        cout << "how much cost: " << nodeFromOpenListWeNeedToHandle->getCost() << endl;
         string result = this->backTrace(nodeFromOpenListWeNeedToHandle, searchable);
         this->deleteEverything();
         return result;

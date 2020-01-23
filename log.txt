@@ -1,0 +1,416 @@
+commit db52552767cd4311e0858b483064887a6ccf3a5f
+Author: naberdam <naberdam@gmail,com>
+Date:   Wed Jan 22 16:21:39 2020 +0200
+
+    change the print cost from double to int
+
+commit e343fbf55686251b464b73a981ed1d86c3e4bcfc
+Author: naberdam <naberdam@gmail,com>
+Date:   Wed Jan 22 03:59:18 2020 +0200
+
+    fix AStar.h and codding style
+
+commit 22d0c9b8c7cce6b5a009a425a8b06547b57f86eb
+Merge: 7e18a74 dd07960
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 21 16:14:26 2020 +0200
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 7e18a7485ea3f810422dbf9cadf359101694cd87
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 21 16:13:32 2020 +0200
+
+    fix MyParallelServer.h
+
+commit dd079600368b7f2b096a02029d6069872d7bc294
+Author: Amitai Popovsky <58908019+Amitai-p@users.noreply.github.com>
+Date:   Tue Jan 21 16:09:18 2020 +0200
+
+    Update README.md
+
+commit edb6fba64d1a3d0ccc998909cab0dcfed732555f
+Author: Amitai Popovsky <58908019+Amitai-p@users.noreply.github.com>
+Date:   Tue Jan 21 16:08:40 2020 +0200
+
+    Update README.md
+
+commit 0d4feb51f5b72896aaa7b26f26611bb408caf71d
+Author: Amitai Popovsky <58908019+Amitai-p@users.noreply.github.com>
+Date:   Tue Jan 21 16:06:41 2020 +0200
+
+    Update README.md
+
+commit 0899392a428c53f17d75e24055db5b2cebe3e5f1
+Author: Amitai Popovsky <58908019+Amitai-p@users.noreply.github.com>
+Date:   Tue Jan 21 16:05:57 2020 +0200
+
+    Create README.md
+
+commit 763096d586cb3be1dede54714d30e261af53b0d1
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Mon Jan 20 17:54:05 2020 +0200
+
+    Make comments
+
+commit fa10125b01fd70fada5a02b6eee8451cb44bdfca
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Wed Jan 15 13:01:10 2020 +0200
+
+    Make commits and debbug
+
+commit f2057d17b93f3abd8e33af863cb7c3c155cc4067
+Author: naberdam <naberdam@gmail,com>
+Date:   Thu Jan 16 14:21:23 2020 +0200
+
+    fix FileCacheManager.h
+
+commit 21991f84d5d15832762fcaf747b2f6be0b7aaf08
+Author: naberdam <naberdam@gmail,com>
+Date:   Thu Jan 16 14:09:40 2020 +0200
+
+    fix some commits
+
+commit d10229bf04bd90984255011405d4887a0c6708af
+Author: naberdam <naberdam@gmail,com>
+Date:   Wed Jan 15 12:54:52 2020 +0200
+
+    fix some commits
+
+commit 2e71baa3c9002612a7c0637a0c0c3857f8a65553
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Wed Jan 15 12:31:17 2020 +0200
+
+    Make commits and debbug
+
+commit e3a4d530e811b292a070d310d5c256e8476f059a
+Author: naberdam <naberdam@gmail,com>
+Date:   Wed Jan 15 03:25:46 2020 +0200
+
+    add commits in our program
+
+commit b968f1e334e98319aa4cd68e8edbc6ceba90ccc7
+Author: naberdam <naberdam@gmail,com>
+Date:   Wed Jan 15 01:08:52 2020 +0200
+
+    fix BackTraceSearcher.h
+
+commit bcda7e12c8de9ad515952f9b152adee24ddd6369
+Author: naberdam <naberdam@gmail,com>
+Date:   Wed Jan 15 00:29:46 2020 +0200
+
+    fix AStar.h and add ComparatorsForPriorityQueue.h
+
+commit 6c9ad9357689f555a11cf1c337ce38cd0ab553c9
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 14 20:08:28 2020 +0200
+
+    fix MyClientHandler.h
+
+commit db89670db90b2a00af84d5b52b3c5278fa896b09
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 14 20:00:49 2020 +0200
+
+    fix AStar
+
+commit 6eece94a16f0a55aa3929631404d1c448f611f1d
+Merge: 2181395 3e172a4
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 14 19:58:54 2020 +0200
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       SearcherSolverOA.h
+
+commit 3e172a4905109acc68915a0ef883e1357066febf
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Tue Jan 14 19:57:49 2020 +0200
+
+    Make commits and debbug
+
+commit 21813951ef98c4cac3713ab3cbf73cec552b6342
+Merge: 1f199d0 9906cc8
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 14 19:55:32 2020 +0200
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       SearcherSolverOA.h
+
+commit 1f199d0bf4216c7d61bec2a8e168caf5535fb4e0
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 14 19:54:50 2020 +0200
+
+    fix AStar
+
+commit 9906cc8816966cfa8afc0a293f5716450d081c7f
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Tue Jan 14 19:16:24 2020 +0200
+
+    Fix the cache and test the code
+
+commit 1e094417b604b0c1b1a169fddaa1ea080a7057eb
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Tue Jan 14 18:45:16 2020 +0200
+
+    Fix the cache and test the code
+
+commit 77bb9292e3be00f8e15f3ac42337b55ba6af113c
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 14 18:37:50 2020 +0200
+
+    edit virtual functions
+
+commit 47151bbc3595cfde7772a6d2104fa258433f94c5
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Tue Jan 14 18:16:43 2020 +0200
+
+    Fix the cache and test the code
+
+commit 1ddd544661fe1e159934a2b9c127d0af6096a244
+Merge: cded70b 3f68022
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Tue Jan 14 18:10:10 2020 +0200
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 3f680226aefb82171af013a63df31d07b268a124
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 14 18:09:40 2020 +0200
+
+    add AStar.h
+
+commit cded70b26357096af1da4de69f1a466caca7df76
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Tue Jan 14 16:10:25 2020 +0200
+
+    update for MatrixBuilder
+
+commit 03e5ad8f4015e22f9331507c84e981f4fb3949cb
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 14 16:00:18 2020 +0200
+
+    add BFS
+
+commit 1a0cec3f840397cc3191074bd6b70b548a862882
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 14 02:52:02 2020 +0200
+
+    rename MySearcher.h to BackTraceSearcher.h
+
+commit 1981c27fbd8a960799ac779847808f79a05f7855
+Author: naberdam <naberdam@gmail,com>
+Date:   Tue Jan 14 02:34:59 2020 +0200
+
+    make BestFirstSearch.h with behavior of classes
+
+commit 482423d768873cdc5ad3244fd963b3576b014e17
+Merge: 9cac815 aaa078d
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 21:54:34 2020 +0200
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 9cac8157e8d87d17ad660fb637e559bbfb3ac0a1
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 21:53:50 2020 +0200
+
+    fix vector of matrix from double to State<Point>*
+
+commit aaa078d1595bb8cc2fce253837f5fdcad296adc7
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Mon Jan 13 15:52:31 2020 +0200
+
+    update for MatrixBuilder
+
+commit 48dd4adad1524943c05bc306009468989df6366b
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 15:40:06 2020 +0200
+
+    not template ClientHandler.h
+
+commit edf9fa7cc1f65ef7c43bd60a2ff879eceb794c6b
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 15:35:37 2020 +0200
+
+    not template ClientHandler.h
+
+commit ec9ca49996103fa42eab5ee32514af3632c8f3e2
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 15:33:18 2020 +0200
+
+    not template ClientHandler.h
+
+commit 6b47752a6d6d2c8e2d9bfa7a132c064233507346
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 15:29:45 2020 +0200
+
+    not template ClientHandler.h
+
+commit cfbe8aceaf01c990cf310d64e14335d7b524c043
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 14:44:03 2020 +0200
+
+    fix boot.h
+
+commit 3a47931f98db646cfcb7d1c1163a5965ddbe5b62
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 14:34:51 2020 +0200
+
+    overloading operator<<
+
+commit 42d0738352a51288e3c20e340c3ae4c31956fe09
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 14:25:21 2020 +0200
+
+    update handleClient in MyClientHandler.h
+
+commit f887da1ff48a442965e959ed8a3158d307e1f61d
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Mon Jan 13 14:24:05 2020 +0200
+
+    update for MatrixBuilder
+
+commit 46d3c361bd9950f0fcc8485ec1e87bb1a08c59db
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Mon Jan 13 14:14:42 2020 +0200
+
+    update for MatrixBuilder
+
+commit 13b7b5012be4748980ad802007a8503047c62b3e
+Merge: e62ddc8 66eff3a
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Mon Jan 13 14:10:53 2020 +0200
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       MyClientHandler.h
+
+commit 66eff3a07a76f0dec8226f1099590afd9f566e39
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 14:10:17 2020 +0200
+
+    update handleClient in MyClientHandler.h
+
+commit e62ddc8c74806f6e2afde12080c68b10dd1e9eb3
+Merge: 7b46d00 3345a2a
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Mon Jan 13 14:09:34 2020 +0200
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       MyClientHandler.h
+
+commit 7b46d00c91694daac0446462861a489d73ff36fe
+Merge: b0a5931 258a033
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Mon Jan 13 14:08:36 2020 +0200
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 3345a2aa1e43885ca4457ba1ce96a3cb73129628
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 14:08:31 2020 +0200
+
+    update handleClient in MyClientHandler.h
+
+commit b0a5931d9b4e302c05c5e445d47a337cca2e8cfd
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Mon Jan 13 14:08:16 2020 +0200
+
+    update for MyClientHandler
+
+commit 258a0337e6ff41996570fcc7c4fb8d4e8e4b9037
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 14:05:41 2020 +0200
+
+    fix addLineAfterParsingByComaToVector
+
+commit bfe780bce2bb674468d6e8f9901dd345f2c49153
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 13:24:38 2020 +0200
+
+    end MatrixBuilder.cpp
+
+commit 1fbcd4123a7d9f403c4c07558ec7c36a1d96f0f4
+Author: naberdam <naberdam@gmail,com>
+Date:   Mon Jan 13 00:39:53 2020 +0200
+
+    SearcherSolverOA.h that connects between Solver to Searcher and Searchable
+
+commit 95b1dc177f68da3f91d4873f756e12c75e09a12f
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Sun Jan 12 21:48:07 2020 +0200
+
+    update with test
+
+commit 657cf456b3521ac019a9d593b0e965447a50780f
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Sun Jan 12 19:53:45 2020 +0200
+
+    update FileCacheManager
+
+commit 1e78cdf6d2d358252cb45891adbd1d9fc6c1a5a2
+Author: naberdam <naberdam@gmail,com>
+Date:   Sun Jan 12 19:51:38 2020 +0200
+
+    update Searchable.h
+
+commit ee2d7c7c465f7b823f3b06b5f497cf43d8f78ef0
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Sun Jan 12 18:41:32 2020 +0200
+
+    Merge with FileCacheManager update
+
+commit c7930e37152486fc7f8bdf201bdb4993e6ea1ba4
+Author: naberdam <naberdam@gmail,com>
+Date:   Sun Jan 12 18:32:20 2020 +0200
+
+    add filecachemanager
+
+commit 96f161d2b39f0c32db7b9378c6675e57bf106f19
+Author: naberdam <naberdam@gmail,com>
+Date:   Sun Jan 12 18:29:52 2020 +0200
+
+    add filecachemanager
+
+commit 6ab662164cd3ee8537985b0fe9318dc9bca10004
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Sun Jan 12 18:28:09 2020 +0200
+
+    erase FilecacheManager
+
+commit b49b8262ada15d52338d739254929b5208ee8786
+Merge: bec6bf2 aac4557
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Sun Jan 12 18:27:33 2020 +0200
+
+    Merge remote-tracking branch 'origin/master'
+
+commit bec6bf2aa01a47297e5864095863f86da1c48904
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Sun Jan 12 18:25:26 2020 +0200
+
+    erase FilecacheManager
+
+commit bd502ed6f0dbfed8d138e33fb6f6d5517786cfc4
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Sun Jan 12 18:08:23 2020 +0200
+
+    update reading for test the reserver
+
+commit aac45573235490a4332c1ca8bacdf141b43b6f92
+Author: naberdam <naberdam@gmail,com>
+Date:   Sun Jan 12 18:03:53 2020 +0200
+
+    connect succeed
+
+commit d28b5a4afb8f93f7a5b715f9c82a13819d72e6ac
+Author: Amitai-p <amitai.p2@gmail.com>
+Date:   Sun Jan 12 17:52:26 2020 +0200
+
+    Initial commit

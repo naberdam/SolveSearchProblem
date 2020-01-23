@@ -76,20 +76,20 @@ class MyClientHandler : public ClientHandler {
     MyMatrixSearchable *matrixSearchable = MatrixBuilder::createMatrix(detailsOnMatrix, problem);
     //if we have solution for this problem
     if (this->cacheManager->isSavedSolution(problem)) {
-      cout << "There is a solution" << endl;
+      /*cout << "There is a solution" << endl;*/
       solution = this->cacheManager->getSolution(problem);
 
     } else {
       //there is no solution in cacheManager, so we need to solve it
-      cout << "we dont have solution, but we will find for you" << endl;
+      /*cout << "we dont have solution, but we will find for you" << endl;*/
       solution = this->solver->solve(matrixSearchable);
       this->cacheManager->saveSolution(problem, solution);
       /*cout << solution << endl;*/
     }
-    cout << solution << endl;
-    if (buffer[0] == '\0') {
+    /*cout << solution << endl;*/
+    /*if (buffer[0] == '\0') {
       cout << "prob" << endl;
-    }
+    }*/
     //write the solution to server
     write(socket, solution.c_str(), solution.length());
   }

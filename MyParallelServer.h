@@ -42,6 +42,7 @@ void openParallelServers(ClientHandler *clientHandler, int port) {
   bind(s, (sockaddr *) &serv, sizeof(serv));
 
   setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
+  cout << "Server is listening..." << endl;
   while (server_side::isParallelServerConnecting) {
     try {
       int new_sock;

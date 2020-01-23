@@ -47,10 +47,10 @@ class MyTestClientHandler : public ClientHandler {
       if (prob.size() > 0) {
         string ans;
         if (this->cm->isSavedSolution(prob)) {
-          cout << "we have solution" << endl;
+          /*cout << "we have solution" << endl;*/
           ans = this->cm->getSolution(prob);
         } else {
-          cout << "we dont have solution" << endl;
+          /*cout << "we dont have solution" << endl;*/
           ans = this->solver->solve(prob);
           this->cm->saveSolution(prob, ans);
         }
