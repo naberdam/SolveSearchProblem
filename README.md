@@ -58,7 +58,7 @@ You can run a python script that will send the data.
 
 Just send the values of the matrix and then the start point and after that the goal state and after that write "end".
 
-We used github, https://github.com/Amitai-p/ex4.1
+We used [github](https://github.com/Amitai-p/ex4.1)
 
 
 
